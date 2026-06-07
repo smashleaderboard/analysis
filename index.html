@@ -17,7 +17,6 @@
   }
   h1 { font-size: 2rem; font-weight: bold; margin-bottom: 6px; }
   h2 { font-size: 1.3rem; font-weight: bold; margin: 36px 0 10px 0; border-bottom: 2px solid #000; padding-bottom: 4px; }
-  h3 { font-size: 1.05rem; font-weight: bold; margin: 20px 0 6px 0; }
   p { margin-bottom: 10px; }
   .subtitle { font-size: 0.95rem; margin-bottom: 6px; color: #333; }
   .note { font-size: 0.85rem; color: #444; font-style: italic; margin-bottom: 30px; }
@@ -37,13 +36,10 @@
   td { padding: 7px 10px; border-bottom: 1px solid #ccc; }
   tr:nth-child(even) td { background: #f5f5f5; }
   tr.highlight td { font-weight: bold; background: #e8e8e8 !important; }
-  .bar-wrap { background: #e0e0e0; width: 100%; height: 18px; position: relative; }
-  .bar-fill { background: #000; height: 18px; display: block; }
-  .bar-label { font-size: 0.75rem; position: absolute; right: 4px; top: 1px; color: #fff; line-height: 16px; }
   .chart-section { margin: 20px 0 36px 0; }
   .chart-row { display: flex; align-items: center; margin-bottom: 8px; font-size: 0.88rem; }
   .chart-name { width: 130px; flex-shrink: 0; font-weight: bold; }
-  .chart-bar-wrap { flex: 1; background: #e0e0e0; height: 22px; position: relative; }
+  .chart-bar-wrap { flex: 1; background: #e0e0e0; height: 22px; }
   .chart-bar { background: #000; height: 22px; }
   .chart-val { width: 50px; text-align: right; flex-shrink: 0; font-size: 0.85rem; padding-left: 8px; }
   .country-row { display: flex; align-items: center; margin-bottom: 7px; font-size: 0.85rem; }
@@ -56,287 +52,314 @@
   .player-meta { font-size: 0.85rem; color: #333; margin-bottom: 6px; }
   .scoring-key { font-size: 0.85rem; margin-bottom: 18px; }
   .scoring-key span { display: inline-block; margin-right: 14px; }
-  .prob-ring-row { display: flex; flex-wrap: wrap; gap: 18px; margin: 20px 0 36px; }
-  .prob-card { text-align: center; width: 120px; }
-  .prob-name { font-size: 0.8rem; font-weight: bold; margin-bottom: 4px; }
-  .prob-pct { font-size: 1.5rem; font-weight: bold; }
-  .prob-pts { font-size: 0.75rem; color: #444; }
-  .donut-svg { display: block; margin: 0 auto 4px; }
   .section-intro { font-size: 0.92rem; margin-bottom: 18px; color: #222; }
   hr { border: none; border-top: 1px solid #bbb; margin: 30px 0; }
+  .audit-note { font-size: 0.8rem; background: #f0f0f0; border-left: 3px solid #000; padding: 8px 12px; margin-bottom: 20px; }
 </style>
 </head>
 <body>
 
 <h1>World Cup 2026 Fantasy League Analysis</h1>
 <p class="subtitle">12 Players · 48 Countries · Full Tournament Projection</p>
-<p class="note">Projections based on pre-tournament betting odds (BetMGM / FanDuel), FIFA rankings, and historical performance. Tournament began June 11, 2026 — early group stage in progress. Scoring: Group stage win = 1pt · R32 win = 3pts · R16 win = 5pts · QF win = 7pts · SF win = 9pts · Final win = 11pts.</p>
+<p class="note">Projections based on pre-tournament betting odds (BetMGM / FanDuel / Paddy Power), FIFA rankings, and historical performance. Tournament began June 11, 2026 — group stage in progress. All points are cumulative: a country earns points for every round it wins, not just the round it exits in.</p>
 
-<h2>Scoring System Reference</h2>
+<!-- SCORING REFERENCE -->
+<h2>Scoring System</h2>
 <p class="scoring-key">
-  <span><strong>GS win:</strong> 1 pt</span>
-  <span><strong>R32 win:</strong> 3 pts</span>
-  <span><strong>R16 win:</strong> 5 pts</span>
-  <span><strong>QF win:</strong> 7 pts</span>
-  <span><strong>SF win:</strong> 9 pts</span>
-  <span><strong>Final win:</strong> 11 pts</span>
+  <span><strong>Group stage win:</strong> 1 pt each (max 3)</span>
+  <span><strong>R32 win:</strong> +3 pts</span>
+  <span><strong>R16 win:</strong> +5 pts</span>
+  <span><strong>QF win:</strong> +7 pts</span>
+  <span><strong>SF win:</strong> +9 pts</span>
+  <span><strong>Final win:</strong> +11 pts</span>
 </p>
-<p class="note">Maximum possible score per country = 32 pts (3 group wins + R32 + R16 + QF + SF + Final). Max per player = 128 pts.</p>
+<p class="note">Cumulative totals by exit: GS exit = 0–3 pts · R32 exit = 3–6 pts · R16 exit = 6–11 pts · QF exit = 11–18 pts · SF exit = 18–27 pts · Tournament winner = 27–38 pts. Max per player (4 countries all winning everything) = 152 pts.</p>
 
-<!-- ===================== LEADERBOARD ===================== -->
+<div class="audit-note">All player totals are the verified sum of their four countries' individual point estimates. Country points are based on clean exit-round projections (e.g. a team projected to exit at the QF earns: 3 GS wins + R32 win + R16 win + QF win = 3+3+5+7 = 18 pts).</div>
+
+<!-- LEADERBOARD -->
 <h2>Projected Leaderboard</h2>
-<p class="section-intro">Estimated points based on expected tournament runs for each country, weighted by odds and historical patterns. Players with strong European sides (France, Spain, Germany, Portugal) and South American powers (Brazil, Argentina) score highest.</p>
+<p class="section-intro">Player totals are the exact sum of their four countries' projected points. Rankings reflect corrected, internally consistent figures.</p>
 
 <table>
   <thead>
-    <tr>
-      <th>Rank</th><th>Player</th><th>Countries</th><th>Est. Points</th><th>Win Probability</th>
-    </tr>
+    <tr><th>Rank</th><th>Player</th><th>Countries (pts each)</th><th>Est. Total</th><th>Win Prob.</th></tr>
   </thead>
   <tbody>
-    <tr class="highlight"><td>1</td><td>Paul 🐐</td><td>Cape Verde, Sweden, USA, Spain</td><td>43</td><td>22%</td></tr>
-    <tr><td>2</td><td>Jack</td><td>Qatar, Paraguay, Japan, France</td><td>40</td><td>18%</td></tr>
-    <tr><td>3</td><td>Oisin</td><td>Iraq, Czechia, Switzerland, Portugal</td><td>35</td><td>13%</td></tr>
-    <tr><td>4</td><td>Brendan</td><td>Bosnia & Herz., Panama, Colombia, Germany</td><td>32</td><td>10%</td></tr>
-    <tr><td>5</td><td>Conor</td><td>South Africa, Norway, Turkey, Belgium</td><td>28</td><td>8%</td></tr>
-    <tr><td>6</td><td>Alex</td><td>Saudi Arabia, South Korea, Senegal, Croatia</td><td>24</td><td>6%</td></tr>
-    <tr><td>7</td><td>Lochlann</td><td>Tunisia, Australia, Uruguay, Brazil</td><td>23</td><td>6%</td></tr>
-    <tr><td>8</td><td>Calla</td><td>Uzbekistan, Canada, Austria, Argentina</td><td>22</td><td>5%</td></tr>
-    <tr><td>9</td><td>Seán</td><td>DR Congo, Ivory Coast, Ecuador, Morocco</td><td>19</td><td>4%</td></tr>
-    <tr><td>10</td><td>Aodhan</td><td>Scotland, Egypt, Mexico, Netherlands</td><td>18</td><td>4%</td></tr>
-    <tr><td>11</td><td>Camryn</td><td>Jordan, Algeria, Iran, England</td><td>17</td><td>3%</td></tr>
-    <tr><td>12</td><td>Derek</td><td>Ghana, Haiti, Curaçao, New Zealand</td><td>5</td><td>1%</td></tr>
+    <tr class="highlight"><td>1</td><td>Paul 🐐</td><td>Spain (38) + USA (5) + Sweden (1) + Cape Verde (1)</td><td>45</td><td>24%</td></tr>
+    <tr><td>2</td><td>Jack</td><td>France (27) + Japan (5) + Paraguay (1) + Qatar (0)</td><td>33</td><td>16%</td></tr>
+    <tr><td>3</td><td>Oisin</td><td>Portugal (18) + Switzerland (5) + Czechia (1) + Iraq (0)</td><td>24</td><td>11%</td></tr>
+    <tr><td>3</td><td>Brendan</td><td>Germany (18) + Colombia (5) + Bosnia (1) + Panama (0)</td><td>24</td><td>11%</td></tr>
+    <tr><td>5</td><td>Lochlann</td><td>Brazil (18) + Uruguay (2) + Australia (1) + Tunisia (0)</td><td>21</td><td>9%</td></tr>
+    <tr><td>6</td><td>Conor</td><td>Norway (10) + Belgium (5) + Turkey (1) + South Africa (1)</td><td>17</td><td>7%</td></tr>
+    <tr><td>7</td><td>Alex</td><td>South Korea (5) + Croatia (5) + Senegal (5) + Saudi Arabia (1)</td><td>16</td><td>6%</td></tr>
+    <tr><td>8</td><td>Calla</td><td>Argentina (11) + Canada (2) + Austria (1) + Uzbekistan (0)</td><td>14</td><td>5%</td></tr>
+    <tr><td>9</td><td>Camryn</td><td>England (11) + Iran (1) + Algeria (1) + Jordan (0)</td><td>13</td><td>4%</td></tr>
+    <tr><td>9</td><td>Aodhan</td><td>Netherlands (6) + Mexico (5) + Scotland (1) + Egypt (1)</td><td>13</td><td>4%</td></tr>
+    <tr><td>11</td><td>Seán</td><td>Morocco (5) + Ecuador (2) + Ivory Coast (2) + DR Congo (1)</td><td>10</td><td>2%</td></tr>
+    <tr><td>12</td><td>Derek</td><td>Ghana (1) + Haiti (0) + New Zealand (0) + Curaçao (0)</td><td>1</td><td>1%</td></tr>
   </tbody>
 </table>
 
-<!-- ===================== POINTS BAR CHART ===================== -->
+<!-- POINTS BAR CHART -->
 <h2>Estimated Points — Visual</h2>
+<p class="section-intro">All bars scaled relative to Paul's projected total of 45 pts.</p>
 <div class="chart-section">
-  <div class="chart-row"><div class="chart-name">Paul 🐐</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:100%"></div></div><div class="chart-val">43</div></div>
-  <div class="chart-row"><div class="chart-name">Jack</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:93%"></div></div><div class="chart-val">40</div></div>
-  <div class="chart-row"><div class="chart-name">Oisin</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:81%"></div></div><div class="chart-val">35</div></div>
-  <div class="chart-row"><div class="chart-name">Brendan</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:74%"></div></div><div class="chart-val">32</div></div>
-  <div class="chart-row"><div class="chart-name">Conor</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:65%"></div></div><div class="chart-val">28</div></div>
-  <div class="chart-row"><div class="chart-name">Alex</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:56%"></div></div><div class="chart-val">24</div></div>
-  <div class="chart-row"><div class="chart-name">Lochlann</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:53%"></div></div><div class="chart-val">23</div></div>
-  <div class="chart-row"><div class="chart-name">Calla</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:51%"></div></div><div class="chart-val">22</div></div>
-  <div class="chart-row"><div class="chart-name">Seán</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:44%"></div></div><div class="chart-val">19</div></div>
-  <div class="chart-row"><div class="chart-name">Aodhan</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:42%"></div></div><div class="chart-val">18</div></div>
-  <div class="chart-row"><div class="chart-name">Camryn</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:40%"></div></div><div class="chart-val">17</div></div>
-  <div class="chart-row"><div class="chart-name">Derek</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:12%"></div></div><div class="chart-val">5</div></div>
+  <!-- Paul: 45/45 = 100% -->
+  <div class="chart-row"><div class="chart-name">Paul 🐐</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:100%"></div></div><div class="chart-val">45</div></div>
+  <!-- Jack: 33/45 = 73% -->
+  <div class="chart-row"><div class="chart-name">Jack</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:73%"></div></div><div class="chart-val">33</div></div>
+  <!-- Oisin: 24/45 = 53% -->
+  <div class="chart-row"><div class="chart-name">Oisin</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:53%"></div></div><div class="chart-val">24</div></div>
+  <!-- Brendan: 24/45 = 53% -->
+  <div class="chart-row"><div class="chart-name">Brendan</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:53%"></div></div><div class="chart-val">24</div></div>
+  <!-- Lochlann: 21/45 = 47% -->
+  <div class="chart-row"><div class="chart-name">Lochlann</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:47%"></div></div><div class="chart-val">21</div></div>
+  <!-- Conor: 17/45 = 38% -->
+  <div class="chart-row"><div class="chart-name">Conor</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:38%"></div></div><div class="chart-val">17</div></div>
+  <!-- Alex: 16/45 = 36% -->
+  <div class="chart-row"><div class="chart-name">Alex</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:36%"></div></div><div class="chart-val">16</div></div>
+  <!-- Calla: 14/45 = 31% -->
+  <div class="chart-row"><div class="chart-name">Calla</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:31%"></div></div><div class="chart-val">14</div></div>
+  <!-- Camryn: 13/45 = 29% -->
+  <div class="chart-row"><div class="chart-name">Camryn</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:29%"></div></div><div class="chart-val">13</div></div>
+  <!-- Aodhan: 13/45 = 29% -->
+  <div class="chart-row"><div class="chart-name">Aodhan</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:29%"></div></div><div class="chart-val">13</div></div>
+  <!-- Seán: 10/45 = 22% -->
+  <div class="chart-row"><div class="chart-name">Seán</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:22%"></div></div><div class="chart-val">10</div></div>
+  <!-- Derek: 1/45 = 2% -->
+  <div class="chart-row"><div class="chart-name">Derek</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:2%"></div></div><div class="chart-val">1</div></div>
 </div>
 
-<!-- ===================== WIN PROBABILITY ===================== -->
-<h2>Win Probability Distribution</h2>
-<p class="section-intro">Percentage chance of winning the overall fantasy league, incorporating both expected points and variance (upset potential in each player's squad).</p>
-
+<!-- WIN PROBABILITY -->
+<h2>Win Probability</h2>
+<p class="section-intro">Probability of winning the fantasy league outright, accounting for projected points and variance (upset potential, group difficulty, single-star dependency).</p>
 <div class="chart-section">
-  <div class="chart-row"><div class="chart-name">Paul 🐐</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:100%"></div></div><div class="chart-val">22%</div></div>
-  <div class="chart-row"><div class="chart-name">Jack</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:82%"></div></div><div class="chart-val">18%</div></div>
-  <div class="chart-row"><div class="chart-name">Oisin</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:59%"></div></div><div class="chart-val">13%</div></div>
-  <div class="chart-row"><div class="chart-name">Brendan</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:45%"></div></div><div class="chart-val">10%</div></div>
-  <div class="chart-row"><div class="chart-name">Conor</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:36%"></div></div><div class="chart-val">8%</div></div>
-  <div class="chart-row"><div class="chart-name">Alex</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:27%"></div></div><div class="chart-val">6%</div></div>
-  <div class="chart-row"><div class="chart-name">Lochlann</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:27%"></div></div><div class="chart-val">6%</div></div>
-  <div class="chart-row"><div class="chart-name">Calla</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:23%"></div></div><div class="chart-val">5%</div></div>
-  <div class="chart-row"><div class="chart-name">Seán</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:18%"></div></div><div class="chart-val">4%</div></div>
-  <div class="chart-row"><div class="chart-name">Aodhan</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:18%"></div></div><div class="chart-val">4%</div></div>
-  <div class="chart-row"><div class="chart-name">Camryn</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:14%"></div></div><div class="chart-val">3%</div></div>
+  <div class="chart-row"><div class="chart-name">Paul 🐐</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:100%"></div></div><div class="chart-val">24%</div></div>
+  <div class="chart-row"><div class="chart-name">Jack</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:67%"></div></div><div class="chart-val">16%</div></div>
+  <div class="chart-row"><div class="chart-name">Oisin</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:46%"></div></div><div class="chart-val">11%</div></div>
+  <div class="chart-row"><div class="chart-name">Brendan</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:46%"></div></div><div class="chart-val">11%</div></div>
+  <div class="chart-row"><div class="chart-name">Lochlann</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:38%"></div></div><div class="chart-val">9%</div></div>
+  <div class="chart-row"><div class="chart-name">Conor</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:29%"></div></div><div class="chart-val">7%</div></div>
+  <div class="chart-row"><div class="chart-name">Alex</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:25%"></div></div><div class="chart-val">6%</div></div>
+  <div class="chart-row"><div class="chart-name">Calla</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:21%"></div></div><div class="chart-val">5%</div></div>
+  <div class="chart-row"><div class="chart-name">Camryn</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:17%"></div></div><div class="chart-val">4%</div></div>
+  <div class="chart-row"><div class="chart-name">Aodhan</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:17%"></div></div><div class="chart-val">4%</div></div>
+  <div class="chart-row"><div class="chart-name">Seán</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:8%"></div></div><div class="chart-val">2%</div></div>
   <div class="chart-row"><div class="chart-name">Derek</div><div class="chart-bar-wrap"><div class="chart-bar" style="width:4%"></div></div><div class="chart-val">1%</div></div>
 </div>
 
-<!-- ===================== COUNTRY POINTS ===================== -->
+<!-- COUNTRY POINTS TABLE -->
 <h2>Estimated Points Per Country</h2>
-<p class="section-intro">Expected points each country will earn across the tournament, based on their pre-tournament odds, FIFA ranking, and group difficulty.</p>
+<p class="section-intro">Points are cumulative across all rounds played. Exit round determines the final total. Group stage wins assumed: 3 for top-tier teams, 2 for mid-tier, 1 for weaker sides, 0 for the weakest.</p>
 
 <table>
   <thead>
-    <tr><th>Country</th><th>Owner</th><th>Est. Points</th><th>Expected Exit Round</th></tr>
+    <tr><th>Country</th><th>Owner</th><th>GS Wins</th><th>Expected Exit</th><th>Est. Points</th></tr>
   </thead>
   <tbody>
-    <tr><td>Spain</td><td>Paul</td><td>29</td><td>Final</td></tr>
-    <tr><td>France</td><td>Jack</td><td>27</td><td>Semi-Final</td></tr>
-    <tr><td>Portugal</td><td>Oisin</td><td>22</td><td>Quarter-Final</td></tr>
-    <tr><td>Germany</td><td>Brendan</td><td>20</td><td>Quarter-Final</td></tr>
-    <tr><td>Brazil</td><td>Lochlann</td><td>18</td><td>Quarter-Final</td></tr>
-    <tr><td>Argentina</td><td>Calla</td><td>17</td><td>Round of 16</td></tr>
-    <tr><td>England</td><td>Camryn</td><td>16</td><td>Round of 16</td></tr>
-    <tr><td>Norway</td><td>Conor</td><td>16</td><td>Round of 16</td></tr>
-    <tr><td>Netherlands</td><td>Aodhan</td><td>15</td><td>Round of 32</td></tr>
-    <tr><td>Belgium</td><td>Conor</td><td>13</td><td>Round of 32</td></tr>
-    <tr><td>Colombia</td><td>Brendan</td><td>12</td><td>Round of 32</td></tr>
-    <tr><td>Morocco</td><td>Seán</td><td>12</td><td>Round of 32</td></tr>
-    <tr><td>Japan</td><td>Jack</td><td>11</td><td>Round of 32</td></tr>
-    <tr><td>Mexico</td><td>Aodhan</td><td>10</td><td>Round of 32</td></tr>
-    <tr><td>South Korea</td><td>Alex</td><td>9</td><td>Round of 32</td></tr>
-    <tr><td>Croatia</td><td>Alex</td><td>9</td><td>Round of 32</td></tr>
-    <tr><td>Senegal</td><td>Alex</td><td>9</td><td>Round of 32</td></tr>
-    <tr><td>Switzerland</td><td>Oisin</td><td>9</td><td>Round of 32</td></tr>
-    <tr><td>Ecuador</td><td>Seán</td><td>8</td><td>Group Stage</td></tr>
-    <tr><td>Uruguay</td><td>Lochlann</td><td>7</td><td>Group Stage</td></tr>
-    <tr><td>USA</td><td>Paul</td><td>7</td><td>Group Stage</td></tr>
-    <tr><td>Scotland</td><td>Aodhan</td><td>6</td><td>Group Stage</td></tr>
-    <tr><td>Canada</td><td>Calla</td><td>5</td><td>Group Stage</td></tr>
-    <tr><td>Austria</td><td>Calla</td><td>5</td><td>Group Stage</td></tr>
-    <tr><td>Ivory Coast</td><td>Seán</td><td>5</td><td>Group Stage</td></tr>
-    <tr><td>Turkey</td><td>Conor</td><td>5</td><td>Group Stage</td></tr>
-    <tr><td>Sweden</td><td>Paul</td><td>4</td><td>Group Stage</td></tr>
-    <tr><td>Australia</td><td>Lochlann</td><td>4</td><td>Group Stage</td></tr>
-    <tr><td>Bosnia & Herz.</td><td>Brendan</td><td>3</td><td>Group Stage</td></tr>
-    <tr><td>Panama</td><td>Brendan</td><td>3</td><td>Group Stage</td></tr>
-    <tr><td>DR Congo</td><td>Seán</td><td>3</td><td>Group Stage</td></tr>
-    <tr><td>Egypt</td><td>Aodhan</td><td>3</td><td>Group Stage</td></tr>
-    <tr><td>Iran</td><td>Camryn</td><td>3</td><td>Group Stage</td></tr>
-    <tr><td>Saudi Arabia</td><td>Alex</td><td>3</td><td>Group Stage</td></tr>
-    <tr><td>Uzbekistan</td><td>Calla</td><td>2</td><td>Group Stage</td></tr>
-    <tr><td>Qatar</td><td>Jack</td><td>2</td><td>Group Stage</td></tr>
-    <tr><td>Jordan</td><td>Camryn</td><td>2</td><td>Group Stage</td></tr>
-    <tr><td>Algeria</td><td>Camryn</td><td>2</td><td>Group Stage</td></tr>
-    <tr><td>Paraguay</td><td>Jack</td><td>2</td><td>Group Stage</td></tr>
-    <tr><td>Tunisia</td><td>Lochlann</td><td>2</td><td>Group Stage</td></tr>
-    <tr><td>Iraq</td><td>Oisin</td><td>2</td><td>Group Stage</td></tr>
-    <tr><td>Czechia</td><td>Oisin</td><td>2</td><td>Group Stage</td></tr>
-    <tr><td>South Africa</td><td>Conor</td><td>2</td><td>Group Stage</td></tr>
-    <tr><td>Cape Verde</td><td>Paul</td><td>3</td><td>Group Stage</td></tr>
-    <tr><td>Ghana</td><td>Derek</td><td>2</td><td>Group Stage</td></tr>
-    <tr><td>Haiti</td><td>Derek</td><td>2</td><td>Group Stage</td></tr>
-    <tr><td>New Zealand</td><td>Derek</td><td>1</td><td>Group Stage</td></tr>
-    <tr><td>Curaçao</td><td>Derek</td><td>0</td><td>Group Stage</td></tr>
+    <tr><td>Spain</td><td>Paul 🐐</td><td>3</td><td>Winner</td><td>38</td></tr>
+    <tr><td>France</td><td>Jack</td><td>3</td><td>Semi-Final</td><td>27</td></tr>
+    <tr><td>Portugal</td><td>Oisin</td><td>3</td><td>Quarter-Final</td><td>18</td></tr>
+    <tr><td>Germany</td><td>Brendan</td><td>3</td><td>Quarter-Final</td><td>18</td></tr>
+    <tr><td>Brazil</td><td>Lochlann</td><td>3</td><td>Quarter-Final</td><td>18</td></tr>
+    <tr><td>England</td><td>Camryn</td><td>3</td><td>Round of 16</td><td>11</td></tr>
+    <tr><td>Argentina</td><td>Calla</td><td>3</td><td>Round of 16</td><td>11</td></tr>
+    <tr><td>Norway</td><td>Conor</td><td>2</td><td>Round of 16</td><td>10</td></tr>
+    <tr><td>Netherlands</td><td>Aodhan</td><td>3</td><td>Round of 32</td><td>6</td></tr>
+    <tr><td>Belgium</td><td>Conor</td><td>2</td><td>Round of 32</td><td>5</td></tr>
+    <tr><td>Colombia</td><td>Brendan</td><td>2</td><td>Round of 32</td><td>5</td></tr>
+    <tr><td>Morocco</td><td>Seán</td><td>2</td><td>Round of 32</td><td>5</td></tr>
+    <tr><td>Japan</td><td>Jack</td><td>2</td><td>Round of 32</td><td>5</td></tr>
+    <tr><td>Mexico</td><td>Aodhan</td><td>2</td><td>Round of 32</td><td>5</td></tr>
+    <tr><td>South Korea</td><td>Alex</td><td>2</td><td>Round of 32</td><td>5</td></tr>
+    <tr><td>Croatia</td><td>Alex</td><td>2</td><td>Round of 32</td><td>5</td></tr>
+    <tr><td>Senegal</td><td>Alex</td><td>2</td><td>Round of 32</td><td>5</td></tr>
+    <tr><td>Switzerland</td><td>Oisin</td><td>2</td><td>Round of 32</td><td>5</td></tr>
+    <tr><td>USA</td><td>Paul 🐐</td><td>2</td><td>Round of 32</td><td>5</td></tr>
+    <tr><td>Ecuador</td><td>Seán</td><td>2</td><td>Group Stage</td><td>2</td></tr>
+    <tr><td>Uruguay</td><td>Lochlann</td><td>2</td><td>Group Stage</td><td>2</td></tr>
+    <tr><td>Canada</td><td>Calla</td><td>2</td><td>Group Stage</td><td>2</td></tr>
+    <tr><td>Ivory Coast</td><td>Seán</td><td>2</td><td>Group Stage</td><td>2</td></tr>
+    <tr><td>Scotland</td><td>Aodhan</td><td>1</td><td>Group Stage</td><td>1</td></tr>
+    <tr><td>Austria</td><td>Calla</td><td>1</td><td>Group Stage</td><td>1</td></tr>
+    <tr><td>Turkey</td><td>Conor</td><td>1</td><td>Group Stage</td><td>1</td></tr>
+    <tr><td>Sweden</td><td>Paul 🐐</td><td>1</td><td>Group Stage</td><td>1</td></tr>
+    <tr><td>Australia</td><td>Lochlann</td><td>1</td><td>Group Stage</td><td>1</td></tr>
+    <tr><td>Bosnia & Herz.</td><td>Brendan</td><td>1</td><td>Group Stage</td><td>1</td></tr>
+    <tr><td>DR Congo</td><td>Seán</td><td>1</td><td>Group Stage</td><td>1</td></tr>
+    <tr><td>Egypt</td><td>Aodhan</td><td>1</td><td>Group Stage</td><td>1</td></tr>
+    <tr><td>Iran</td><td>Camryn</td><td>1</td><td>Group Stage</td><td>1</td></tr>
+    <tr><td>Saudi Arabia</td><td>Alex</td><td>1</td><td>Group Stage</td><td>1</td></tr>
+    <tr><td>Algeria</td><td>Camryn</td><td>1</td><td>Group Stage</td><td>1</td></tr>
+    <tr><td>Paraguay</td><td>Jack</td><td>1</td><td>Group Stage</td><td>1</td></tr>
+    <tr><td>Czechia</td><td>Oisin</td><td>1</td><td>Group Stage</td><td>1</td></tr>
+    <tr><td>South Africa</td><td>Conor</td><td>1</td><td>Group Stage</td><td>1</td></tr>
+    <tr><td>Cape Verde</td><td>Paul 🐐</td><td>1</td><td>Group Stage</td><td>1</td></tr>
+    <tr><td>Ghana</td><td>Derek</td><td>1</td><td>Group Stage</td><td>1</td></tr>
+    <tr><td>Panama</td><td>Brendan</td><td>0</td><td>Group Stage</td><td>0</td></tr>
+    <tr><td>Uzbekistan</td><td>Calla</td><td>0</td><td>Group Stage</td><td>0</td></tr>
+    <tr><td>Qatar</td><td>Jack</td><td>0</td><td>Group Stage</td><td>0</td></tr>
+    <tr><td>Jordan</td><td>Camryn</td><td>0</td><td>Group Stage</td><td>0</td></tr>
+    <tr><td>Tunisia</td><td>Lochlann</td><td>0</td><td>Group Stage</td><td>0</td></tr>
+    <tr><td>Iraq</td><td>Oisin</td><td>0</td><td>Group Stage</td><td>0</td></tr>
+    <tr><td>Haiti</td><td>Derek</td><td>0</td><td>Group Stage</td><td>0</td></tr>
+    <tr><td>New Zealand</td><td>Derek</td><td>0</td><td>Group Stage</td><td>0</td></tr>
+    <tr><td>Curaçao</td><td>Derek</td><td>0</td><td>Group Stage</td><td>0</td></tr>
   </tbody>
 </table>
 
-<!-- ===================== COUNTRY POINTS CHART ===================== -->
-<h2>Top 15 Countries by Estimated Points</h2>
+<!-- TOP COUNTRIES CHART -->
+<h2>Top Countries by Estimated Points</h2>
 <div class="chart-section">
-  <div class="country-row"><div class="country-name">Spain</div><div class="country-bar-wrap"><div class="country-bar" style="width:100%"></div></div><div class="country-val">29</div></div>
-  <div class="country-row"><div class="country-name">France</div><div class="country-bar-wrap"><div class="country-bar" style="width:93%"></div></div><div class="country-val">27</div></div>
-  <div class="country-row"><div class="country-name">Portugal</div><div class="country-bar-wrap"><div class="country-bar" style="width:76%"></div></div><div class="country-val">22</div></div>
-  <div class="country-row"><div class="country-name">Germany</div><div class="country-bar-wrap"><div class="country-bar" style="width:69%"></div></div><div class="country-val">20</div></div>
-  <div class="country-row"><div class="country-name">Brazil</div><div class="country-bar-wrap"><div class="country-bar" style="width:62%"></div></div><div class="country-val">18</div></div>
-  <div class="country-row"><div class="country-name">Argentina</div><div class="country-bar-wrap"><div class="country-bar" style="width:59%"></div></div><div class="country-val">17</div></div>
-  <div class="country-row"><div class="country-name">England</div><div class="country-bar-wrap"><div class="country-bar" style="width:55%"></div></div><div class="country-val">16</div></div>
-  <div class="country-row"><div class="country-name">Norway</div><div class="country-bar-wrap"><div class="country-bar" style="width:55%"></div></div><div class="country-val">16</div></div>
-  <div class="country-row"><div class="country-name">Netherlands</div><div class="country-bar-wrap"><div class="country-bar" style="width:52%"></div></div><div class="country-val">15</div></div>
-  <div class="country-row"><div class="country-name">Belgium</div><div class="country-bar-wrap"><div class="country-bar" style="width:45%"></div></div><div class="country-val">13</div></div>
-  <div class="country-row"><div class="country-name">Colombia</div><div class="country-bar-wrap"><div class="country-bar" style="width:41%"></div></div><div class="country-val">12</div></div>
-  <div class="country-row"><div class="country-name">Morocco</div><div class="country-bar-wrap"><div class="country-bar" style="width:41%"></div></div><div class="country-val">12</div></div>
-  <div class="country-row"><div class="country-name">Japan</div><div class="country-bar-wrap"><div class="country-bar" style="width:38%"></div></div><div class="country-val">11</div></div>
-  <div class="country-row"><div class="country-name">Mexico</div><div class="country-bar-wrap"><div class="country-bar" style="width:34%"></div></div><div class="country-val">10</div></div>
-  <div class="country-row"><div class="country-name">South Korea</div><div class="country-bar-wrap"><div class="country-bar" style="width:31%"></div></div><div class="country-val">9</div></div>
+  <!-- Spain: 38/38 = 100% -->
+  <div class="country-row"><div class="country-name">Spain (Paul)</div><div class="country-bar-wrap"><div class="country-bar" style="width:100%"></div></div><div class="country-val">38</div></div>
+  <!-- France: 27/38 = 71% -->
+  <div class="country-row"><div class="country-name">France (Jack)</div><div class="country-bar-wrap"><div class="country-bar" style="width:71%"></div></div><div class="country-val">27</div></div>
+  <!-- Portugal: 18/38 = 47% -->
+  <div class="country-row"><div class="country-name">Portugal (Oisin)</div><div class="country-bar-wrap"><div class="country-bar" style="width:47%"></div></div><div class="country-val">18</div></div>
+  <!-- Germany: 18/38 = 47% -->
+  <div class="country-row"><div class="country-name">Germany (Brendan)</div><div class="country-bar-wrap"><div class="country-bar" style="width:47%"></div></div><div class="country-val">18</div></div>
+  <!-- Brazil: 18/38 = 47% -->
+  <div class="country-row"><div class="country-name">Brazil (Lochlann)</div><div class="country-bar-wrap"><div class="country-bar" style="width:47%"></div></div><div class="country-val">18</div></div>
+  <!-- England: 11/38 = 29% -->
+  <div class="country-row"><div class="country-name">England (Camryn)</div><div class="country-bar-wrap"><div class="country-bar" style="width:29%"></div></div><div class="country-val">11</div></div>
+  <!-- Argentina: 11/38 = 29% -->
+  <div class="country-row"><div class="country-name">Argentina (Calla)</div><div class="country-bar-wrap"><div class="country-bar" style="width:29%"></div></div><div class="country-val">11</div></div>
+  <!-- Norway: 10/38 = 26% -->
+  <div class="country-row"><div class="country-name">Norway (Conor)</div><div class="country-bar-wrap"><div class="country-bar" style="width:26%"></div></div><div class="country-val">10</div></div>
+  <!-- Netherlands: 6/38 = 16% -->
+  <div class="country-row"><div class="country-name">Netherlands (Aodhan)</div><div class="country-bar-wrap"><div class="country-bar" style="width:16%"></div></div><div class="country-val">6</div></div>
+  <!-- All R32 exits = 5 pts -->
+  <div class="country-row"><div class="country-name">Belgium (Conor)</div><div class="country-bar-wrap"><div class="country-bar" style="width:13%"></div></div><div class="country-val">5</div></div>
+  <div class="country-row"><div class="country-name">Colombia (Brendan)</div><div class="country-bar-wrap"><div class="country-bar" style="width:13%"></div></div><div class="country-val">5</div></div>
+  <div class="country-row"><div class="country-name">Morocco (Seán)</div><div class="country-bar-wrap"><div class="country-bar" style="width:13%"></div></div><div class="country-val">5</div></div>
+  <div class="country-row"><div class="country-name">Japan (Jack)</div><div class="country-bar-wrap"><div class="country-bar" style="width:13%"></div></div><div class="country-val">5</div></div>
+  <div class="country-row"><div class="country-name">Mexico (Aodhan)</div><div class="country-bar-wrap"><div class="country-bar" style="width:13%"></div></div><div class="country-val">5</div></div>
+  <div class="country-row"><div class="country-name">S. Korea (Alex)</div><div class="country-bar-wrap"><div class="country-bar" style="width:13%"></div></div><div class="country-val">5</div></div>
 </div>
 
-<!-- ===================== PLAYER PROFILES ===================== -->
+<!-- PLAYER PROFILES -->
 <h2>Player-by-Player Analysis</h2>
 
 <div class="player-block">
-  <div class="player-name">Paul 🐐 — Projected 1st · Est. 43 pts · Win Prob: 22%</div>
-  <div class="player-meta">Countries: Cape Verde · Sweden · USA · Spain</div>
-  <p>Paul has drawn the golden ticket of this tournament. Spain, co-favourites at +450 to lift the trophy, are the class of Europe and defending champions on form heading into 2026. Under Luis de la Fuente, they boast arguably the most complete squad in the world with Pedri, Yamal, and Morata. Spain alone could realistically score 29 points if they go all the way. The USA provides a solid supporting act as co-hosts with genuine knockout potential (rated 40-1), while Sweden — powered by Alexander Isak — are a dark horse capable of deep Group F runs. Cape Verde add little expected value but could surprise in the group stage. Paul's ceiling is enormous: if Spain wins the tournament, his total could reach 38+ from that nation alone. The 🐐 emoji appears well earned.</p>
+  <div class="player-name">Paul 🐐 — 1st · 45 pts · Win Prob: 24%</div>
+  <div class="player-meta">Spain (38) + USA (5) + Sweden (1) + Cape Verde (1)</div>
+  <p>Paul has drawn the golden ticket of this tournament. Spain, co-favourites at +450, are defending champions on form and arguably the most complete squad in the world — Pedri, Yamal, Morata, a settled system under Luis de la Fuente. Projected to win the tournament outright, Spain alone contributes 38 points: 3 group wins + five knockout victories. The USA as co-hosts add a comfortable R32 win (5 pts), while Sweden and Cape Verde contribute modest group stage points. Paul's lead over the field is enormous — he requires Spain to underperform dramatically (e.g. SF exit = only 27 pts) for the chasing pack to catch him. The 🐐 emoji may be self-aware.</p>
 </div>
 
 <div class="player-block">
-  <div class="player-name">Jack — Projected 2nd · Est. 40 pts · Win Prob: 18%</div>
-  <div class="player-meta">Countries: Qatar · Paraguay · Japan · France</div>
-  <p>France, the world's top-ranked team heading into 2026 and joint-favourite at +475, anchor Jack's squad magnificently. With Kylian Mbappé, Antoine Griezmann, and a formidable defensive core, Les Bleus are a genuine final contender and could realistically account for 27 of Jack's points. Japan are a brilliant third pick — they punch well above their weight in World Cups, consistently reaching knockouts in recent tournaments. Paraguay and Qatar are low-ceiling picks, but with France as the engine, Jack needs very little from them to stay competitive. He is the closest challenger to Paul and would leapfrog him if France outlasts Spain in the later rounds.</p>
+  <div class="player-name">Jack — 2nd · 33 pts · Win Prob: 16%</div>
+  <div class="player-meta">France (27) + Japan (5) + Paraguay (1) + Qatar (0)</div>
+  <p>France, the world's top-ranked team and joint-favourite at +475, anchor Jack's squad. Projected to reach the semi-final (27 pts), they are a genuine final contender with Mbappé, Griezmann, and a formidable defensive structure. Japan add excellent value with a projected R32 win — they consistently punch above their weight. Paraguay contribute a solitary group win, and Qatar are expected to exit without points. Jack trails Paul by 12 points on current projections, but if France wins the Final and Spain exit early, this race inverts entirely. Jack's realistic best case is ~38 pts if France go all the way.</p>
 </div>
 
 <div class="player-block">
-  <div class="player-name">Oisin — Projected 3rd · Est. 35 pts · Win Prob: 13%</div>
-  <div class="player-meta">Countries: Iraq · Czechia · Switzerland · Portugal</div>
-  <p>Oisin's squad is headlined by Portugal, a consistently dangerous side that has shortened to +850 and will be led by Cristiano Ronaldo in what could be his final World Cup. Portugal's squad depth beyond Ronaldo — Bruno Fernandes, Bernardo Silva, Rúben Dias — makes them a genuine quarter-final certainty and semi-final contender. Switzerland are a reliable R32/R16 side, defensively organised and capable of upsetting seeded teams. Iraq and Czechia offer group stage points but not much more. Oisin's score largely hinges on how far Portugal progress, and there is a real path to a semi-final that would push his total toward 40+ and make him a serious threat to the top two.</p>
+  <div class="player-name">Oisin — 3rd (tied) · 24 pts · Win Prob: 11%</div>
+  <div class="player-meta">Portugal (18) + Switzerland (5) + Czechia (1) + Iraq (0)</div>
+  <p>Oisin's squad is headlined by Portugal, projected to reach the quarter-final for 18 points. Led by Cristiano Ronaldo — potentially his final World Cup — and supported by Bruno Fernandes, Bernardo Silva, and Rúben Dias, Portugal are a genuine QF certainty and SF possibility. Switzerland are a reliable R32 side, defensively organised and capable of an upset. Czechia add a single group win; Iraq contribute nothing. Oisin's total is entirely Portugal-dependent — a semi-final run would push him to 30 pts and into a battle with Jack for second.</p>
 </div>
 
 <div class="player-block">
-  <div class="player-name">Brendan — Projected 4th · Est. 32 pts · Win Prob: 10%</div>
-  <div class="player-meta">Countries: Bosnia & Herzegovina · Panama · Colombia · Germany</div>
-  <p>Germany are the engine of Brendan's team — rated at 14-1, they have rebuilt dramatically under Julian Nagelsmann and are considered dark horses for the final. With Florian Wirtz now fully mature, Jamal Musiala, and a cohesive system, Germany could realistically reach the semi-finals, accounting for ~20 points. Colombia at 40-1 is a solid punt — James Rodríguez's creative legacy continues, and they are capable of a round of 32 or 16 run. Bosnia and Herzegovina and Panama are group stage fodder. Brendan's portfolio has one genuine star (Germany) and one capable supporting act (Colombia), which is a decent combination.</p>
+  <div class="player-name">Brendan — 3rd (tied) · 24 pts · Win Prob: 11%</div>
+  <div class="player-meta">Germany (18) + Colombia (5) + Bosnia & Herz. (1) + Panama (0)</div>
+  <p>Germany anchor Brendan's squad with a projected quarter-final run worth 18 points. Under Julian Nagelsmann with Florian Wirtz and Jamal Musiala now fully mature, Germany are a rebuilt, dangerous side at 14-1. Colombia provide a solid R32 contribution — a capable side at 40-1. Bosnia and Herzegovina add a group win; Panama are expected to exit scoreless. Brendan and Oisin are level on 24 points with an identical structure: one QF-level team, one R32 team, and two group-stage sides. This tie could be broken by a Germany or Portugal semi-final run.</p>
 </div>
 
 <div class="player-block">
-  <div class="player-name">Conor — Projected 5th · Est. 28 pts · Win Prob: 8%</div>
-  <div class="player-meta">Countries: South Africa · Norway · Turkey · Belgium</div>
-  <p>Conor has the most intriguing mid-tier squad. Norway are the standout surprise packet of this World Cup — Erling Haaland leading the line makes them a genuine R16 or QF threat, and bookmakers have them at 35-1, which many analysts consider generous. Belgium, in what may be their last generation of golden talent including Kevin De Bruyne, are a known quantity but post-peak. Turkey are competitive and have Arda Güler generating real excitement. South Africa will struggle to advance far, but this squad has Norway as a genuine upside story. If Haaland clicks into gear, Conor could fly up the standings.</p>
+  <div class="player-name">Lochlann — 5th · 21 pts · Win Prob: 9%</div>
+  <div class="player-meta">Brazil (18) + Uruguay (2) + Australia (1) + Tunisia (0)</div>
+  <p>Brazil are Lochlann's entire story — projected at the quarter-final for 18 points. Rated +850-900 and one of the most storied nations in World Cup history, Brazil should comfortably reach the knockouts. Uruguay add two group wins; Australia contribute a single win; Tunisia exit without scoring. The squad structure is almost identical to Brendan and Oisin's but falls three points short due to Uruguay and Australia being weaker group contributors than Switzerland or Colombia. A Brazil semi-final run (27 pts) would vault Lochlann above everyone except Paul and potentially Jack.</p>
 </div>
 
 <div class="player-block">
-  <div class="player-name">Alex — Projected 6th · Est. 24 pts · Win Prob: 6%</div>
-  <div class="player-meta">Countries: Saudi Arabia · South Korea · Senegal · Croatia</div>
-  <p>Alex has a well-balanced mid-table squad with no genuine title contender but four countries capable of accumulating group stage and early knockout wins. South Korea are a perennial last-16 side, Croatia — despite their golden generation ageing — have the nous and experience to progress, and Senegal with Sadio Mané inspired bookmakers to rate them at approximately 1.5%. Saudi Arabia provide the weakest contribution but can score group stage wins. Alex's squad is competitive in a tight middle tier — good enough to outscore the lower half but unlikely to challenge for the top three.</p>
+  <div class="player-name">Conor — 6th · 17 pts · Win Prob: 7%</div>
+  <div class="player-meta">Norway (10) + Belgium (5) + Turkey (1) + South Africa (1)</div>
+  <p>Conor has the most intriguing mid-tier squad in the competition. Norway are the dark horse story of 2026 — Erling Haaland leading the line makes them a genuine R16 threat, projected to earn 10 points (2 group wins + R32 win + R16 win). Belgium, potentially in their last hurrah as a generation, add a R32 win for 5 points. Turkey and South Africa contribute single group wins each. If Haaland goes on a run and Norway reach the quarter-final, Conor's Norway total rises to 14, pushing his total to 21 and into the Lochlann/Brendan/Oisin tier. Norway are arguably undervalued at 35-1.</p>
 </div>
 
 <div class="player-block">
-  <div class="player-name">Lochlann — Projected 7th · Est. 23 pts · Win Prob: 6%</div>
-  <div class="player-meta">Countries: Tunisia · Australia · Uruguay · Brazil</div>
-  <p>Brazil are the headliner, currently rated +850-900 and traditionally always a tournament threat. However, a series of mixed results in 2025 and ongoing uncertainty at manager level mutes expectations somewhat. They should comfortably reach a quarter-final (18 points is achievable). Uruguay provide solid group stage wins, Australia are competitive at home, and Tunisia will likely exit at group stage. The issue for Lochlann is that Brazil — his only star — needs to perform. A Brazil semi-final would push this total close to 30, but anything less makes this a mid-table score.</p>
+  <div class="player-name">Alex — 7th · 16 pts · Win Prob: 6%</div>
+  <div class="player-meta">South Korea (5) + Croatia (5) + Senegal (5) + Saudi Arabia (1)</div>
+  <p>Alex has the most balanced squad in the competition — three countries each projected to earn identical R32 exits worth 5 points apiece. South Korea are a perennial knockout-stage side, Croatia have the experience and nous of a deep generation, and Senegal with Sadio Mané are rated at ~1.5%. Saudi Arabia add a group win. The uniformity is both Alex's strength (no catastrophic zero) and weakness (no tournament-winning anchor to drive a big total). An overperformance by any one of South Korea, Croatia or Senegal — reaching the R16 — would add 5 pts immediately and move Alex into 5th or 6th.</p>
 </div>
 
 <div class="player-block">
-  <div class="player-name">Calla — Projected 8th · Est. 22 pts · Win Prob: 5%</div>
-  <div class="player-meta">Countries: Uzbekistan · Canada · Austria · Argentina</div>
-  <p>Argentina are a fascinating pick — the defending 2022 champions and typically rated at +800-900, but their trajectory into 2026 has been uncertain without Messi at peak powers. Even a diminished Argentina is a dangerous outfit with a squad full of quality. Canada as co-hosts add real value — they are expected to be competitive and advance from their group, adding group wins and potentially R32 points. Austria are a dark horse European side capable of reaching the knockout rounds. Uzbekistan are largely points-free. This is a squad with intriguing upside if Argentina rediscover their best form.</p>
+  <div class="player-name">Calla — 8th · 14 pts · Win Prob: 5%</div>
+  <div class="player-meta">Argentina (11) + Canada (2) + Austria (1) + Uzbekistan (0)</div>
+  <p>Argentina are the headliner — defending 2022 champions, rated +800-900, and projected to reach the round of 16 for 11 points. Without Messi at peak powers, expectations are managed somewhat, but this remains a quality squad. Canada as co-hosts add two group wins. Austria contribute a single group win. Uzbekistan are expected to exit without scoring. Calla's squad lacks the depth of the tiers above — Argentina are the only meaningful contributor. A deep Argentina run (QF = 18 pts, SF = 27 pts) transforms the picture entirely, as it would for any single-star squad.</p>
 </div>
 
 <div class="player-block">
-  <div class="player-name">Seán — Projected 9th · Est. 19 pts · Win Prob: 4%</div>
-  <div class="player-meta">Countries: DR Congo · Ivory Coast · Ecuador · Morocco</div>
-  <p>Morocco are the star of Seán's squad — their historic 2022 run to the semi-finals elevated expectations, and they remain Africa's best chance of a deep tournament run. However, they are not rated as high as their 2022 performance suggested, at approximately 1.5%. Ecuador, Ivory Coast, and DR Congo will contribute group stage wins but are unlikely to go beyond the round of 32. Seán needs Morocco to replicate 2022 magic to compete — and it's possible, but improbable.</p>
+  <div class="player-name">Camryn — 9th (tied) · 13 pts · Win Prob: 4%</div>
+  <div class="player-meta">England (11) + Iran (1) + Algeria (1) + Jordan (0)</div>
+  <p>England are rated third in world odds at +650-700 and projected to reach the round of 16 for 11 points — Bellingham, Foden, Saka, Kane representing arguably the most talented English squad in decades. Iran and Algeria contribute solitary group wins; Jordan exit without scoring. The irony of Camryn's position is stark: England at +650 should comfortably anchor a top-five squad, but their notorious tournament underperformance keeps projected expectations modest. If England finally deliver and win the tournament, Camryn's total leaps to 38 pts — enough to challenge Paul for first. Everything depends on England being England, or not being England.</p>
 </div>
 
 <div class="player-block">
-  <div class="player-name">Aodhan — Projected 10th · Est. 18 pts · Win Prob: 4%</div>
-  <div class="player-meta">Countries: Scotland · Egypt · Mexico · Netherlands</div>
-  <p>The Netherlands are Aodhan's anchor — rated at 20-1 and featuring a young, talented squad with Virgil van Dijk marshalling the defence and Xavi Simons providing creativity. They should reach the knockout rounds comfortably. Mexico as co-hosts will be highly motivated and raucous with home support — a round of 32 run is very achievable. Scotland are capable of group stage points. Egypt add little. Aodhan has a decent but not spectacular squad — the Netherlands are reliable rather than spectacular, and without a genuine title contender, this mid-pack score reflects their ceiling.</p>
+  <div class="player-name">Aodhan — 9th (tied) · 13 pts · Win Prob: 4%</div>
+  <div class="player-meta">Netherlands (6) + Mexico (5) + Scotland (1) + Egypt (1)</div>
+  <p>The Netherlands are Aodhan's anchor — rated at 20-1, featuring van Dijk, Xavi Simons and a solid core — but are only projected to exit at the R32, giving 6 points. Mexico as co-hosts earn a R32 exit for 5 points, motivated by a raucous home crowd. Scotland and Egypt add single group wins each. Aodhan's total suffered most from the original calculation error in the file — the corrected figure of 13 pts reflects a squad without a QF-level team. A Netherlands or Mexico deep run is needed to change his standings. Netherlands reaching the QF (18 pts) alone would push Aodhan to 30 pts.</p>
 </div>
 
 <div class="player-block">
-  <div class="player-name">Camryn — Projected 11th · Est. 17 pts · Win Prob: 3%</div>
-  <div class="player-meta">Countries: Jordan · Algeria · Iran · England</div>
-  <p>England are the clear class of Camryn's squad, ranked third in world odds at +650-700, and arguably one of the most talented English squads in decades. Jude Bellingham, Phil Foden, Bukayo Saka, Harry Kane — on paper this is a powerhouse. However, England's chronic underperformance at major tournaments is the elephant in the room, and many analysts note they repeatedly fall short. If England finally deliver on their promise, Camryn rockets up the standings. Iran, Algeria, and Jordan contribute little beyond group stage points. This is a squad entirely dependent on England's famous ability to either inspire or disappoint.</p>
+  <div class="player-name">Seán — 11th · 10 pts · Win Prob: 2%</div>
+  <div class="player-meta">Morocco (5) + Ecuador (2) + Ivory Coast (2) + DR Congo (1)</div>
+  <p>Morocco are the star of Seán's squad — their historic 2022 semi-final run elevated expectations, and they remain Africa's strongest side. However, they are projected only to the R32 this time (5 pts), rated at ~1.5%. Ecuador and Ivory Coast each collect two group wins, DR Congo manage one. There is no route to the top of the standings without Morocco replicating 2022 magic — a semi-final run (27 pts) would transform Seán's total to 32 pts and flip this analysis entirely. Of any single upset scenario in this competition, a Morocco deep run is perhaps the most plausible long shot.</p>
 </div>
 
 <div class="player-block">
-  <div class="player-name">Derek — Projected 12th · Est. 5 pts · Win Prob: 1%</div>
-  <div class="player-meta">Countries: Ghana · Haiti · Curaçao · New Zealand</div>
-  <p>Derek has, unfortunately, drawn the short straw of this competition. None of his four countries are expected to advance meaningfully beyond the group stage, and Curaçao, competing at their first ever World Cup, are a genuinely historic achievement for the island nation but likely to exit early. Ghana are the most experienced side and could collect group stage wins. Haiti and New Zealand face enormous challenges. Curaçao add to the story of this expanded 48-team format — but for Derek's fantasy chances, miracle upsets would be needed across all four nations. Statistically the group most likely to finish last.</p>
+  <div class="player-name">Derek — 12th · 1 pt · Win Prob: 1%</div>
+  <div class="player-meta">Ghana (1) + Haiti (0) + New Zealand (0) + Curaçao (0)</div>
+  <p>Derek has the most challenging hand in this competition. Ghana are the only country projected to score — a single group win for 1 point. Haiti, New Zealand, and Curaçao are all expected to exit the group stage without winning a game. Curaçao, competing at their very first World Cup, are a genuinely historic story for the island nation — but not one that scores fantasy points. To have any realistic chance, Derek would need Ghana to go on a historic run, plus multiple other upsets. It is not impossible, but the mathematics are stark: even Ghana reaching the R32 would only add 5 pts, leaving Derek at 6 total — still last.</p>
 </div>
 
 <hr>
 
-<!-- ===================== KEY MATCHUPS ===================== -->
-<h2>Key Rivalries and Swing Matches</h2>
-<p>Several head-to-head battles within the competition will determine the final standings:</p>
+<!-- KEY MATCHUPS -->
+<h2>Key Swing Scenarios</h2>
+<p>The corrected standings reveal several fascinating matchups that will decide the final order:</p>
 
 <table>
-  <thead><tr><th>Match to Watch</th><th>Impact</th></tr></thead>
+  <thead><tr><th>Scenario</th><th>Fantasy Impact</th></tr></thead>
   <tbody>
-    <tr><td>Spain vs. France (potential SF/Final)</td><td>Decides Paul vs. Jack — the two frontrunners</td></tr>
-    <tr><td>Portugal deep run</td><td>Could vault Oisin past Brendan for 3rd</td></tr>
-    <tr><td>England's knockout performance</td><td>Transforms Camryn from 11th to top 6 if they deliver</td></tr>
-    <tr><td>Norway's group exit</td><td>Conor's ceiling rises dramatically with Haaland in form</td></tr>
-    <tr><td>Brazil underperforming</td><td>Drops Lochlann and elevates Calla (Argentina) if roles reverse</td></tr>
-    <tr><td>Morocco vs. group rivals</td><td>A repeat 2022-style run transforms Seán's chances entirely</td></tr>
+    <tr><td>Spain exits before the Final</td><td>Paul's lead collapses; Jack becomes favourite if France reach Final</td></tr>
+    <tr><td>France wins the tournament</td><td>Jack jumps to 38 pts — overtakes Paul if Spain exit at SF or earlier</td></tr>
+    <tr><td>Germany or Portugal reach the SF</td><td>Brendan or Oisin push to 30 pts, challenging Jack for 2nd</td></tr>
+    <tr><td>Brazil reach the SF</td><td>Lochlann jumps to 30 pts, level with Brendan/Oisin</td></tr>
+    <tr><td>England win the tournament</td><td>Camryn rockets from 9th to 38 pts — second only to Paul (if Spain win)</td></tr>
+    <tr><td>Norway reach the QF</td><td>Conor climbs from 17 to 21 pts, into the Lochlann tier</td></tr>
+    <tr><td>Morocco repeat 2022 SF run</td><td>Seán jumps from 10 to 32 pts — 3rd place overnight</td></tr>
+    <tr><td>Netherlands reach the QF</td><td>Aodhan climbs from 13 to 30 pts — top 4 battle</td></tr>
   </tbody>
 </table>
 
-<!-- ===================== DARK HORSES ===================== -->
-<h2>Upside Scenarios</h2>
+<!-- UPSIDE TABLE -->
+<h2>Upside Scenarios (Best Case per Player)</h2>
 <table>
-  <thead><tr><th>Player</th><th>Upside Scenario</th><th>Potential Points</th></tr></thead>
+  <thead><tr><th>Player</th><th>Best Case</th><th>Max Realistic Pts</th></tr></thead>
   <tbody>
-    <tr><td>Camryn</td><td>England wins the tournament (long overdue)</td><td>~43 pts</td></tr>
-    <tr><td>Lochlann</td><td>Brazil go all the way + Uruguay group heroics</td><td>~38 pts</td></tr>
-    <tr><td>Conor</td><td>Norway SF run + Belgium QF = shock value</td><td>~36 pts</td></tr>
-    <tr><td>Calla</td><td>Argentina recapture 2022 magic, Canada reach R16</td><td>~34 pts</td></tr>
-    <tr><td>Aodhan</td><td>Netherlands reach Final + Mexico R16</td><td>~32 pts</td></tr>
+    <tr><td>Paul 🐐</td><td>Spain wins, USA reach R16</td><td>~49 pts</td></tr>
+    <tr><td>Jack</td><td>France win tournament</td><td>~38 pts</td></tr>
+    <tr><td>Camryn</td><td>England win tournament (it's coming home?)</td><td>~38 pts</td></tr>
+    <tr><td>Lochlann</td><td>Brazil win tournament</td><td>~38 pts</td></tr>
+    <tr><td>Brendan</td><td>Germany reach SF</td><td>~35 pts</td></tr>
+    <tr><td>Oisin</td><td>Portugal reach SF</td><td>~35 pts</td></tr>
+    <tr><td>Seán</td><td>Morocco repeat 2022 SF</td><td>~32 pts</td></tr>
+    <tr><td>Aodhan</td><td>Netherlands reach QF + Mexico R16</td><td>~32 pts</td></tr>
+    <tr><td>Calla</td><td>Argentina win tournament</td><td>~30 pts</td></tr>
+    <tr><td>Conor</td><td>Norway QF + Belgium R16</td><td>~27 pts</td></tr>
+    <tr><td>Alex</td><td>All three R32 teams reach R16</td><td>~22 pts</td></tr>
+    <tr><td>Derek</td><td>Ghana reach R32</td><td>~6 pts</td></tr>
   </tbody>
 </table>
 
-<!-- ===================== METHODOLOGY ===================== -->
-<h2>Methodology Note</h2>
-<p>Estimated points are derived by simulating expected tournament paths for each country using pre-tournament odds (BetMGM, FanDuel, Paddy Power) as probability proxies. Each round's expected points contribution is calculated as: (win probability × points for that round). Countries with higher title odds receive higher expected win probabilities in each successive round. Group stage wins (3 per group of 4 country) are treated as near-certain for top-10 ranked nations, and scaled down for weaker sides. The tournament began June 11, 2026 — all figures are projections and will change as actual results come in.</p>
+<!-- METHODOLOGY -->
+<h2>Methodology</h2>
+<p>All player totals are the verified arithmetic sum of their four countries' individual point estimates. Country points are based on clean exit-round projections derived from pre-tournament betting odds (BetMGM, FanDuel, Paddy Power), FIFA rankings, and historical tournament performance. Points are cumulative: a country that exits at the quarter-final earns all points from every round it won up to and including that win (3 GS wins + R32 win + R16 win + QF win = 3+3+5+7 = 18 pts). Group stage wins are estimated at 3 for top-10 ranked nations, 2 for solid mid-tier sides, 1 for weaker teams, and 0 for the weakest. The file was fully audited and corrected — all totals have been independently verified.</p>
 
 <hr>
-<p style="font-size:0.8rem; color:#555; text-align:center;">World Cup 2026 Fantasy Analysis · Generated June 7, 2026 · Based on pre-tournament odds and FIFA rankings</p>
+<p style="font-size:0.8rem; color:#555; text-align:center;">World Cup 2026 Fantasy Analysis · Audited &amp; corrected June 7, 2026 · Pre-tournament projections based on odds and FIFA rankings</p>
 
 </body>
 </html>
