@@ -4,740 +4,571 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>World Cup 2026 · Sweepstake Analysis</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --green: #006633;
-    --green-light: #007a3d;
-    --gold: #c9a84c;
-    --gold-pale: #faf6ec;
-    --silver: #a0a0a0;
-    --bronze: #b87333;
-    --text: #111;
-    --text-2: #555;
-    --text-3: #888;
-    --bg: #f9f8f5;
-    --bg-card: #ffffff;
-    --bg-2: #f2f0eb;
-    --border: #e2ddd6;
-    --border-light: #ece9e3;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --text: #f0ede8;
-      --text-2: #aaa;
-      --text-3: #666;
-      --bg: #0e0e0c;
-      --bg-card: #161614;
-      --bg-2: #1c1b18;
-      --border: #2e2c28;
-      --border-light: #232220;
-      --gold-pale: #2a2410;
-    }
-  }
-
-  html { scroll-behavior: smooth; }
-
   body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
+    background: #fff;
+    color: #111;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 400;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ── HEADER ── */
-  .site-header {
-    background: #061a0e;
-    color: #fff;
-    position: relative;
-    overflow: hidden;
-  }
-  .site-header::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 80% 50%, rgba(0,102,51,0.5) 0%, transparent 60%),
-      radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.15) 0%, transparent 50%);
-    pointer-events: none;
-  }
-  .header-pitch-lines {
-    position: absolute;
-    inset: 0;
-    opacity: 0.04;
-    background-image:
-      repeating-linear-gradient(90deg, transparent, transparent 48px, rgba(255,255,255,1) 48px, rgba(255,255,255,1) 49px);
-  }
-  .header-inner {
-    position: relative;
-    max-width: 860px;
+  a { color: #111; }
+
+  /* ── LAYOUT ── */
+  .page {
+    max-width: 680px;
     margin: 0 auto;
-    padding: 3.5rem 1.5rem 3rem;
+    padding: 0 24px 80px;
   }
-  .header-kicker {
+
+  /* ── BACK LINK ── */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #888;
+    margin: 28px 0 0;
+    transition: color 0.15s;
+  }
+  .back-link:hover { color: #111; }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    border-top: 3px solid #111;
+    border-bottom: 1px solid #111;
+    margin-top: 16px;
+    padding: 28px 0 20px;
+  }
+  .masthead-kicker {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    color: #888;
+    margin-bottom: 14px;
   }
-  .header-kicker::before {
-    content: '';
-    display: inline-block;
-    width: 20px;
-    height: 1.5px;
-    background: var(--gold);
+  .masthead-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(40px, 9vw, 72px);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
   }
-  .header-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(52px, 10vw, 96px);
-    line-height: 0.9;
-    letter-spacing: 0.01em;
-    color: #fff;
-    margin-bottom: 1.25rem;
-  }
-  .header-title span { color: var(--gold); }
-  .header-meta {
-    font-size: 13px;
-    color: rgba(255,255,255,0.45);
+  .masthead-sub {
+    margin-top: 14px;
+    font-size: 17px;
     font-weight: 300;
+    font-style: italic;
+    color: #555;
+    line-height: 1.5;
+  }
+  .masthead-meta {
+    margin-top: 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #aaa;
     display: flex;
-    align-items: center;
     gap: 16px;
     flex-wrap: wrap;
   }
-  .header-meta span { display: flex; align-items: center; gap: 5px; }
 
-  /* ── LAYOUT ── */
-  .page-wrap {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 0 1.25rem 4rem;
+  /* ── VERDICT LEDE ── */
+  .lede {
+    margin-top: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #ddd;
   }
-
-  /* ── VERDICT BAND ── */
-  .verdict-band {
-    background: var(--green);
-    color: #fff;
-    padding: 1rem 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 13px;
-    font-weight: 500;
+  .lede p {
+    font-size: 19px;
+    line-height: 1.65;
+    font-weight: 400;
   }
-  .verdict-band .ball { font-size: 20px; flex-shrink: 0; animation: spin 4s linear infinite; }
-  @keyframes spin { to { transform: rotate(360deg); } }
+  .lede p + p { margin-top: 14px; }
+  .lede strong { font-weight: 600; }
 
   /* ── SECTION ── */
-  .section {
-    margin-top: 2.5rem;
-  }
-  .section-header {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    margin-bottom: 1.25rem;
+  .section { margin-top: 40px; }
+  .section + .section { border-top: 1px solid #ddd; padding-top: 40px; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 18px;
   }
   .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 26px;
-    letter-spacing: 0.05em;
-    color: var(--text);
-  }
-  .section-rule {
-    flex: 1;
-    height: 1px;
-    background: var(--border);
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
   }
 
-  /* ── EDITORIAL ANALYSIS CARDS ── */
-  .player-cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  /* ── PLAYER VERDICTS ── */
+  .verdict-item {
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+  }
+  .verdict-item:last-child { border-bottom: none; }
+
+  .verdict-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
     gap: 12px;
+    margin-bottom: 8px;
   }
-  @media (max-width: 580px) {
-    .player-cards { grid-template-columns: 1fr; }
+  .verdict-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 22px;
+    font-weight: 700;
+    font-style: italic;
   }
-
-  .pcard {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.2rem;
-    position: relative;
-    overflow: hidden;
-    transition: box-shadow 0.2s;
+  .verdict-prob {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: #888;
+    white-space: nowrap;
   }
-  .pcard:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-  .pcard.featured {
-    grid-column: 1 / -1;
-    border-color: var(--gold);
-    background: var(--gold-pale);
-  }
-  @media (max-width: 580px) {
-    .pcard.featured { grid-column: 1; }
-  }
-  .pcard-accent {
-    position: absolute;
-    top: 0; left: 0;
-    width: 4px;
-    height: 100%;
-    border-radius: 12px 0 0 12px;
-  }
-  .pcard-rank {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 11px;
+  .verdict-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--text-3);
-    margin-bottom: 4px;
-  }
-  .pcard-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    line-height: 1;
-    letter-spacing: 0.02em;
+    color: #888;
     margin-bottom: 6px;
   }
-  .pcard-prob {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    font-weight: 500;
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 20px;
-    background: rgba(0,0,0,0.06);
-    margin-bottom: 10px;
-    color: var(--text-2);
+  .verdict-body {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #333;
   }
-  @media (prefers-color-scheme: dark) {
-    .pcard-prob { background: rgba(255,255,255,0.08); }
-  }
-  .pcard-body {
-    font-size: 13.5px;
-    line-height: 1.65;
-    color: var(--text-2);
-  }
-  .pcard-countries {
+  .verdict-countries {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-    margin-top: 12px;
+    margin-top: 10px;
   }
-  .country-chip {
-    font-size: 11px;
+  .vcountry {
     font-family: 'DM Mono', monospace;
-    padding: 3px 8px;
-    border-radius: 4px;
-    border: 1px solid var(--border);
-    background: var(--bg-2);
-    color: var(--text-2);
-    display: flex;
-    align-items: center;
-    gap: 4px;
+    font-size: 11px;
+    padding: 2px 8px;
+    border: 1px solid #ddd;
+    color: #555;
   }
 
-  /* swing factor */
+  /* ── SWING BOX ── */
   .swing-box {
-    background: #061a0e;
-    color: #fff;
-    border-radius: 14px;
-    padding: 1.5rem;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 14px;
-    align-items: start;
-    position: relative;
-    overflow: hidden;
-  }
-  .swing-box::after {
-    content: '⚖️';
-    position: absolute;
-    right: -10px;
-    bottom: -20px;
-    font-size: 100px;
-    opacity: 0.06;
-  }
-  .swing-icon {
-    font-size: 32px;
-    margin-top: 2px;
+    margin-top: 28px;
+    border: 1.5px solid #111;
+    padding: 20px 24px;
   }
   .swing-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    letter-spacing: 0.05em;
-    color: var(--gold);
-    margin-bottom: 6px;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
   }
   .swing-body {
-    font-size: 13.5px;
+    font-size: 15px;
     line-height: 1.7;
-    color: rgba(255,255,255,0.75);
+    color: #333;
   }
   .swing-scenarios {
-    margin-top: 12px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    gap: 12px;
+    margin-top: 16px;
   }
   @media (max-width: 480px) { .swing-scenarios { grid-template-columns: 1fr; } }
   .scenario {
-    background: rgba(255,255,255,0.07);
-    border-radius: 8px;
-    padding: 10px 12px;
-    font-size: 12px;
-    line-height: 1.5;
+    background: #f7f7f7;
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: #333;
   }
   .scenario-label {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 4px;
+    color: #888;
+    margin-bottom: 5px;
   }
 
   /* ── SCORING RULES ── */
-  .points-strip {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 8px;
-  }
-  @media (max-width: 540px) {
-    .points-strip { grid-template-columns: repeat(3, 1fr); }
-  }
-  .point-pill {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 6px 10px;
-    text-align: center;
-  }
-  .point-pill .pts {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 30px;
-    line-height: 1;
-    color: var(--text);
-  }
-  .point-pill .stage {
-    font-size: 9.5px;
-    color: var(--text-3);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-top: 3px;
-  }
-  .scoring-note {
-    margin-top: 10px;
-    font-size: 12px;
-    color: var(--text-3);
-    line-height: 1.6;
-  }
-  .scoring-note strong { color: var(--text-2); font-weight: 600; }
-
-  /* ── LEADERBOARD ── */
-  .leaderboard { display: flex; flex-direction: column; gap: 7px; }
-  .lb-row {
-    display: grid;
-    grid-template-columns: 28px 1fr 100px 56px;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 14px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: var(--bg-card);
-    transition: box-shadow 0.15s;
-  }
-  .lb-row:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
-  .lb-row.top1 { border-color: var(--gold); background: var(--gold-pale); }
-  .lb-row.top2 { border-color: #c0bfbb; background: var(--bg-2); }
-  .lb-row.top3 { border-color: var(--bronze); background: #fdf4ef; }
-  @media (prefers-color-scheme: dark) {
-    .lb-row.top3 { background: #241510; }
-  }
-  .rank {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
-    text-align: center;
-    color: var(--text-3);
-  }
-  .lb-row.top1 .rank { color: var(--gold); }
-  .lb-row.top2 .rank { color: var(--silver); }
-  .lb-row.top3 .rank { color: var(--bronze); }
-  .lb-name { font-weight: 600; font-size: 14px; }
-  .lb-countries { font-size: 11px; color: var(--text-3); margin-top: 2px; }
-  .bar-wrap { background: var(--bg-2); border-radius: 4px; height: 5px; overflow: hidden; margin-top: 6px; }
-  .bar-fill { height: 100%; border-radius: 4px; background: var(--border); }
-  .top1 .bar-fill { background: var(--gold); }
-  .top2 .bar-fill { background: var(--silver); }
-  .top3 .bar-fill { background: var(--bronze); }
-  .lb-pts { text-align: right; }
-  .lb-pts .num { font-family: 'Bebas Neue', sans-serif; font-size: 24px; line-height: 1; }
-  .lb-pts .lbl { font-size: 10px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em; }
-
-  /* ── WIN PROBABILITY ── */
-  .winprob-row { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
-  .winprob-name { width: 78px; font-size: 13px; font-weight: 500; flex-shrink: 0; }
-  .winprob-bar-bg {
-    flex: 1;
-    height: 22px;
-    background: var(--bg-2);
-    border-radius: 4px;
-    overflow: hidden;
-    position: relative;
-  }
-  .winprob-bar {
-    height: 100%;
-    border-radius: 4px;
+  .scoring-row {
     display: flex;
     align-items: center;
-    padding-left: 8px;
-    font-size: 11px;
-    font-weight: 500;
-    color: #fff;
-    font-family: 'DM Mono', monospace;
-    transition: width 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    gap: 0;
+    margin-bottom: 10px;
   }
-  .winprob-pct {
-    width: 38px;
-    text-align: right;
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    font-weight: 500;
+  .scoring-row:last-child { margin-bottom: 0; }
+  .scoring-stage {
+    width: 160px;
+    font-size: 14px;
+    color: #555;
     flex-shrink: 0;
-    color: var(--text-2);
+  }
+  @media (max-width: 400px) { .scoring-stage { width: 110px; font-size: 12px; } }
+  .scoring-bar-wrap {
+    flex: 1;
+    height: 2px;
+    background: #eee;
+    position: relative;
+  }
+  .scoring-bar-fill {
+    height: 2px;
+    background: #111;
+    position: absolute;
+    top: 0; left: 0;
+  }
+  .scoring-pts {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    width: 36px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .scoring-note {
+    margin-top: 16px;
+    font-size: 13px;
+    color: #888;
+    line-height: 1.6;
+  }
+
+  /* ── LEADERBOARD ── */
+  .lb-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+  }
+  .lb-row:last-child { border-bottom: none; }
+  .lb-rank {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: #bbb;
+    width: 20px;
+    flex-shrink: 0;
+  }
+  .lb-info { flex: 1; min-width: 0; }
+  .lb-name {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .lb-countries {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: #aaa;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .lb-bar-wrap {
+    width: 120px;
+    height: 2px;
+    background: #eee;
+    flex-shrink: 0;
+  }
+  @media (max-width: 480px) { .lb-bar-wrap { width: 60px; } }
+  .lb-bar-fill { height: 2px; background: #111; }
+  .lb-pts {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    width: 44px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* ── WIN PROBABILITY ── */
+  .wp-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .wp-name {
+    width: 80px;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .wp-bar-wrap {
+    flex: 1;
+    height: 2px;
+    background: #eee;
+    position: relative;
+  }
+  .wp-bar-fill {
+    height: 2px;
+    background: #111;
+    width: 0;
+    transition: width 1s ease;
+  }
+  .wp-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: #888;
+    width: 36px;
+    text-align: right;
+    flex-shrink: 0;
   }
 
   /* ── COUNTRY TABLE ── */
-  .country-table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
-  .country-table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--bg-card); }
-  .country-table th {
+  .ctable { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .ctable th {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #aaa;
     text-align: left;
-    padding: 8px 12px;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-3);
-    border-bottom: 1px solid var(--border);
-    font-weight: 600;
-    white-space: nowrap;
+    padding: 0 0 10px;
+    border-bottom: 1px solid #ddd;
+    font-weight: 500;
   }
-  .country-table td {
-    padding: 7px 12px;
-    border-bottom: 1px solid var(--border-light);
+  .ctable th.r { text-align: right; }
+  .ctable td {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
     vertical-align: middle;
+    color: #333;
   }
-  .country-table tr:last-child td { border-bottom: none; }
-  .country-table tr:hover td { background: var(--bg-2); }
-  .owner { font-weight: 500; }
-  .pts-cell { font-family: 'DM Mono', monospace; font-weight: 500; text-align: right; }
-
-  .tag {
-    display: inline-block;
-    padding: 2px 7px;
-    border-radius: 4px;
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    white-space: nowrap;
-  }
-  .tag-final { background: #fef3c7; color: #92400e; }
-  .tag-semi  { background: #dbeafe; color: #1e40af; }
-  .tag-qf    { background: #d1fae5; color: #065f46; }
-  .tag-r16   { background: #ede9fe; color: #4c1d95; }
-  .tag-r32   { background: #fce7f3; color: #831843; }
-  .tag-group { background: var(--bg-2); color: var(--text-3); }
-  @media (prefers-color-scheme: dark) {
-    .tag-final { background: #451a03; color: #fbbf24; }
-    .tag-semi  { background: #1e3a5f; color: #93c5fd; }
-    .tag-qf    { background: #064e3b; color: #6ee7b7; }
-    .tag-r16   { background: #2e1065; color: #c4b5fd; }
-    .tag-r32   { background: #500724; color: #f9a8d4; }
-  }
+  .ctable tr:last-child td { border-bottom: none; }
+  .ctable tr:hover td { color: #111; }
+  .ctable .cn { font-size: 14px; }
+  .ctable .ow { font-size: 13px; color: #888; padding: 8px 16px; }
+  .ctable .ex { font-size: 12px; color: #aaa; }
+  .ctable .pt { font-family: 'DM Mono', monospace; font-size: 13px; text-align: right; color: #111; }
 
   /* ── INSIGHTS ── */
-  .insight-list { display: flex; flex-direction: column; gap: 9px; }
-  .insight-box {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-left: 3px solid #0a0a0a;
-    border-radius: 0 10px 10px 0;
-    padding: 13px 15px;
-    font-size: 13.5px;
-    line-height: 1.65;
-    color: var(--text-2);
+  .insight-item {
+    padding: 18px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #333;
   }
-  .insight-box strong { font-weight: 600; color: var(--text); }
-  @media (prefers-color-scheme: dark) {
-    .insight-box { border-left-color: var(--gold); }
-  }
+  .insight-item:last-child { border-bottom: none; }
+  .insight-item strong { font-weight: 600; color: #111; }
 
   /* ── METHODOLOGY ── */
-  .method-box {
-    background: var(--bg-2);
-    border-radius: 10px;
-    padding: 1.2rem 1.4rem;
-    font-size: 12.5px;
-    line-height: 1.75;
-    color: var(--text-3);
+  .method-text {
+    font-size: 13px;
+    line-height: 1.8;
+    color: #888;
   }
+  .method-text p + p { margin-top: 12px; }
 
-  /* ── DISCLAIMER ── */
-  .disclaimer {
-    margin-top: 2.5rem;
-    font-size: 11px;
-    color: var(--text-3);
-    line-height: 1.6;
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    font-size: 12px;
+    color: #bbb;
     font-style: italic;
-    text-align: center;
-    padding: 0 1rem;
-  }
-
-  .flag { font-size: 16px; margin-right: 4px; }
-
-  /* ── DIVIDER ── */
-  .divider {
-    border: none;
-    height: 1px;
-    background: var(--border);
-    margin: 2rem 0 0;
+    line-height: 1.6;
   }
 </style>
 </head>
 <body>
+<div class="page">
 
-<!-- HEADER -->
-<header class="site-header">
-  <div class="header-pitch-lines"></div>
-  <div class="header-inner">
-    <div class="header-kicker">Sweepstake Analysis · World Cup 2026</div>
-    <h1 class="header-title">Who's Going<br>to <span>Win?</span></h1>
-    <p class="header-meta">
-      <span>⚽ Pre-tournament projections</span>
+  <a href="/" class="back-link">← Leaderboard</a>
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-kicker">Sweepstake Analysis · World Cup 2026</div>
+    <h1 class="masthead-title">Who's Going<br>to Win?</h1>
+    <p class="masthead-sub">Pre-tournament projections based on Opta's 25,000-simulation model, betting markets, and expert analysis.</p>
+    <div class="masthead-meta">
+      <span>June 2026</span>
       <span>·</span>
-      <span>📊 Opta 25,000-simulation model</span>
+      <span>12 participants</span>
       <span>·</span>
-      <span>🗓 June 2026</span>
-    </p>
+      <span>48 nations</span>
+    </div>
   </div>
-</header>
 
-<div class="verdict-band">
-  <span class="ball">⚽</span>
-  <span>Spain are the tournament favourites (16.1% per Opta). The question isn't just who has the best draw — it's whether Spain actually win it.</span>
-</div>
+  <!-- LEDE -->
+  <div class="lede">
+    <p>Spain are the tournament favourites at 16.1% per Opta's supercomputer — and Paul holds them. That single fact shapes everything that follows. <strong>If Spain win the World Cup, Paul wins the sweepstake.</strong> If they don't, it becomes a fascinating three-way fight between Jack (France), Oisin (Portugal), and Calla (Argentina).</p>
+  </div>
 
-<main class="page-wrap">
-
-  <!-- ── EDITORIAL ANALYSIS ── -->
+  <!-- THE VERDICT -->
   <section class="section">
-    <div class="section-header">
-      <h2 class="section-title">The Verdict</h2>
-      <div class="section-rule"></div>
+    <div class="section-label">The Verdict</div>
+
+    <div class="verdict-item">
+      <div class="verdict-tag">🥇 Clear favourite</div>
+      <div class="verdict-header">
+        <div class="verdict-name">Paul 🐐</div>
+        <div class="verdict-prob">~28% to win</div>
+      </div>
+      <p class="verdict-body">Spain are the most likely World Cup winners according to Opta's supercomputer, coming out on top in 16.1% of 25,000 simulations — and Paul holds them. If Spain go all the way, that's 38 points from Spain alone (3 group wins + every knockout round). USA as a host nation and a decent Sweden side provide solid secondary scoring. The path to victory is simple: Spain lift the trophy.</p>
+      <div class="verdict-countries">
+        <span class="vcountry">🇪🇸 Spain</span>
+        <span class="vcountry">🇺🇸 USA</span>
+        <span class="vcountry">🇸🇪 Sweden</span>
+        <span class="vcountry">🇨🇻 Cape Verde</span>
+      </div>
     </div>
 
-    <div class="player-cards">
-
-      <!-- Paul — featured -->
-      <div class="pcard featured">
-        <div class="pcard-accent" style="background: var(--gold);"></div>
-        <div class="pcard-rank">🥇 Clear Favourite</div>
-        <div class="pcard-name">Paul 🐐</div>
-        <div class="pcard-prob">~28% to win</div>
-        <p class="pcard-body">Paul is the clear favourite. Spain are the most likely World Cup winners according to Opta's supercomputer, coming out on top in 16.1% of 25,000 simulations — and Paul holds them. If Spain go all the way, that's 38 points from Spain alone (3 group wins + every knockout round). USA as a host nation and a decent Sweden side provide solid secondary scoring. The path to victory is simple: Spain lift the trophy.</p>
-        <div class="pcard-countries">
-          <span class="country-chip">🇪🇸 Spain</span>
-          <span class="country-chip">🇺🇸 USA</span>
-          <span class="country-chip">🇸🇪 Sweden</span>
-          <span class="country-chip">🇨🇻 Cape Verde</span>
-        </div>
+    <div class="verdict-item">
+      <div class="verdict-tag">🥈 Second-most dangerous</div>
+      <div class="verdict-header">
+        <div class="verdict-name">Jack</div>
+        <div class="verdict-prob">~22% to win</div>
       </div>
-
-      <!-- Jack -->
-      <div class="pcard">
-        <div class="pcard-accent" style="background: #3b82f6;"></div>
-        <div class="pcard-rank">🥈 Second-Most Dangerous</div>
-        <div class="pcard-name">Jack</div>
-        <div class="pcard-prob">~22% to win</div>
-        <p class="pcard-body">France are the top-ranked nation in the world going into this tournament and one of the two co-favourites alongside Spain. Jack's France alone could match or beat most people's full portfolio. A genuinely dangerous hand that becomes even scarier if Spain exit early.</p>
-        <div class="pcard-countries">
-          <span class="country-chip">🇫🇷 France</span>
-          <span class="country-chip">🇯🇵 Japan</span>
-          <span class="country-chip">🇵🇾 Paraguay</span>
-          <span class="country-chip">🇶🇦 Qatar</span>
-        </div>
+      <p class="verdict-body">France are the top-ranked nation in the world going into this tournament and one of the two co-favourites alongside Spain. Jack's France alone could match or beat most people's full portfolio. A genuinely dangerous hand that becomes even scarier if Spain exit early.</p>
+      <div class="verdict-countries">
+        <span class="vcountry">🇫🇷 France</span>
+        <span class="vcountry">🇯🇵 Japan</span>
+        <span class="vcountry">🇵🇾 Paraguay</span>
+        <span class="vcountry">🇶🇦 Qatar</span>
       </div>
+    </div>
 
-      <!-- Oisin -->
-      <div class="pcard">
-        <div class="pcard-accent" style="background: #8b5cf6;"></div>
-        <div class="pcard-rank">🌙 The Sleeper</div>
-        <div class="pcard-name">Oisin</div>
-        <div class="pcard-prob">~12% to win</div>
-        <p class="pcard-body">Portugal are priced at +900 to win the tournament — the fifth favourite overall. Oisin also holds Switzerland (likely group winners in Group B) and Czechia (a genuine upset pick in Group A). A quietly strong portfolio that could surge if Spain stumble.</p>
-        <div class="pcard-countries">
-          <span class="country-chip">🇵🇹 Portugal</span>
-          <span class="country-chip">🇨🇭 Switzerland</span>
-          <span class="country-chip">🇨🇿 Czechia</span>
-          <span class="country-chip">🇮🇶 Iraq</span>
-        </div>
+    <div class="verdict-item">
+      <div class="verdict-tag">🌙 The sleeper</div>
+      <div class="verdict-header">
+        <div class="verdict-name">Oisin</div>
+        <div class="verdict-prob">~12% to win</div>
       </div>
-
-      <!-- Calla -->
-      <div class="pcard">
-        <div class="pcard-accent" style="background: #ec4899;"></div>
-        <div class="pcard-rank">✨ Deep Run Potential</div>
-        <div class="pcard-name">Calla</div>
-        <div class="pcard-prob">~11% to win</div>
-        <p class="pcard-body">Argentina made the final in 18.1% of Opta's simulations. Messi's farewell tour could go very deep — if the two-time champions reach the final again, Calla has a real shot at the whole thing. High-ceiling pick with a legitimate path to the top.</p>
-        <div class="pcard-countries">
-          <span class="country-chip">🇦🇷 Argentina</span>
-          <span class="country-chip">🇦🇹 Austria</span>
-          <span class="country-chip">🇨🇦 Canada</span>
-          <span class="country-chip">🇺🇿 Uzbekistan</span>
-        </div>
+      <p class="verdict-body">Portugal are priced at +900 to win the tournament — the fifth favourite overall. Oisin also holds Switzerland (likely group winners in Group B) and Czechia (a genuine upset pick in Group A). A quietly strong portfolio that could surge if Spain stumble.</p>
+      <div class="verdict-countries">
+        <span class="vcountry">🇵🇹 Portugal</span>
+        <span class="vcountry">🇨🇭 Switzerland</span>
+        <span class="vcountry">🇨🇿 Czechia</span>
+        <span class="vcountry">🇮🇶 Iraq</span>
       </div>
+    </div>
 
-      <!-- Derek -->
-      <div class="pcard" style="grid-column: 1 / -1; opacity: 0.75;">
-        <div class="pcard-accent" style="background: #9ca3af;"></div>
-        <div class="pcard-rank">💀 Essentially Eliminated</div>
-        <div class="pcard-name">Derek</div>
-        <div class="pcard-prob">~0% to win</div>
-        <p class="pcard-body">Ghana, Haiti, Curaçao and New Zealand are four of the weakest nations in the field. Belgium didn't even get out of the group stage in 2022 when their roster was significantly better — Derek's four teams face an even steeper hill. His projected score of 0 points reflects all four exiting at the group stage. Before a ball is kicked, Derek is done.</p>
-        <div class="pcard-countries">
-          <span class="country-chip">🇬🇭 Ghana</span>
-          <span class="country-chip">🇭🇹 Haiti</span>
-          <span class="country-chip">🇨🇼 Curaçao</span>
-          <span class="country-chip">🇳🇿 New Zealand</span>
-        </div>
+    <div class="verdict-item">
+      <div class="verdict-tag">✨ Deep run potential</div>
+      <div class="verdict-header">
+        <div class="verdict-name">Calla</div>
+        <div class="verdict-prob">~11% to win</div>
       </div>
+      <p class="verdict-body">Argentina made the final in 18.1% of Opta's simulations. Messi's farewell tour could go very deep — if the two-time champions reach the final again, Calla has a real shot at the whole thing.</p>
+      <div class="verdict-countries">
+        <span class="vcountry">🇦🇷 Argentina</span>
+        <span class="vcountry">🇦🇹 Austria</span>
+        <span class="vcountry">🇨🇦 Canada</span>
+        <span class="vcountry">🇺🇿 Uzbekistan</span>
+      </div>
+    </div>
 
+    <div class="verdict-item" style="opacity: 0.6;">
+      <div class="verdict-tag">💀 Essentially eliminated</div>
+      <div class="verdict-header">
+        <div class="verdict-name">Derek</div>
+        <div class="verdict-prob">~0% to win</div>
+      </div>
+      <p class="verdict-body">Ghana, Haiti, Curaçao and New Zealand are four of the weakest nations in the field. Belgium didn't even get out of the group stage in 2022 when their roster was significantly better — Derek's four teams face an even steeper hill. His projected score of 0 points reflects all four exiting at the group stage.</p>
+      <div class="verdict-countries">
+        <span class="vcountry">🇬🇭 Ghana</span>
+        <span class="vcountry">🇭🇹 Haiti</span>
+        <span class="vcountry">🇨🇼 Curaçao</span>
+        <span class="vcountry">🇳🇿 New Zealand</span>
+      </div>
     </div>
 
     <!-- SWING FACTOR -->
-    <div class="swing-box" style="margin-top: 14px;">
-      <div class="swing-icon">⚖️</div>
-      <div>
-        <div class="swing-title">The Key Swing Factor</div>
-        <p class="swing-body">The question for the whole competition is simple: <strong style="color:#fff;">does Spain win the World Cup?</strong> If yes, Paul wins easily. If Spain go out early, it becomes a fascinating three-way battle.</p>
-        <div class="swing-scenarios">
-          <div class="scenario">
-            <div class="scenario-label">If Spain win 🏆</div>
-            Paul wins the sweepstake comfortably. Spain's 38 points is insurmountable.
-          </div>
-          <div class="scenario">
-            <div class="scenario-label">If Spain exit early</div>
-            Three-way battle: Jack (France), Oisin (Portugal) and Calla (Argentina) slug it out.
-          </div>
+    <div class="swing-box">
+      <div class="swing-title">The key swing factor</div>
+      <p class="swing-body">The question for the whole competition is simple: <strong>does Spain win the World Cup?</strong> If yes, Paul wins easily. Spain's 38 points from a clean run would be insurmountable. If they exit early, it becomes a fascinating battle.</p>
+      <div class="swing-scenarios">
+        <div class="scenario">
+          <div class="scenario-label">If Spain win 🏆</div>
+          Paul wins the sweepstake comfortably. Spain's 38 points from a clean run is insurmountable.
+        </div>
+        <div class="scenario">
+          <div class="scenario-label">If Spain exit early</div>
+          Three-way battle: Jack (France), Oisin (Portugal) and Calla (Argentina) slug it out.
         </div>
       </div>
     </div>
-
   </section>
 
-  <!-- ── SCORING RULES ── -->
+  <!-- SCORING RULES -->
   <section class="section">
-    <div class="section-header">
-      <h2 class="section-title">Scoring Rules</h2>
-      <div class="section-rule"></div>
-    </div>
-    <div class="points-strip">
-      <div class="point-pill"><div class="pts">1</div><div class="stage">Group win</div></div>
-      <div class="point-pill"><div class="pts">3</div><div class="stage">Rd of 32</div></div>
-      <div class="point-pill"><div class="pts">5</div><div class="stage">Rd of 16</div></div>
-      <div class="point-pill"><div class="pts">7</div><div class="stage">Quarter-final</div></div>
-      <div class="point-pill"><div class="pts">9</div><div class="stage">Semi-final</div></div>
-      <div class="point-pill"><div class="pts">11</div><div class="stage">Final win</div></div>
-    </div>
-    <p class="scoring-note">A team winning all three group games + every knockout match scores a maximum of <strong>36 pts</strong> (3×1 + 3+5+7+9+11). Each person holds 4 countries, so the theoretical maximum per person is <strong>144 pts</strong>.</p>
+    <div class="section-label">Scoring Rules</div>
+    <div id="scoring-rules"></div>
+    <p class="scoring-note">A team winning all three group games and every knockout match scores a maximum of 36 pts (3×1 + 3+5+7+9+11). Each person holds 4 countries — theoretical maximum: <strong>144 pts</strong>.</p>
   </section>
 
-  <!-- ── PREDICTED STANDINGS ── -->
+  <!-- PREDICTED STANDINGS -->
   <section class="section">
-    <div class="section-header">
-      <h2 class="section-title">Predicted Final Standings</h2>
-      <div class="section-rule"></div>
-    </div>
-    <div class="leaderboard" id="leaderboard"></div>
+    <div class="section-label">Predicted Final Standings</div>
+    <div id="leaderboard"></div>
   </section>
 
-  <!-- ── WIN PROBABILITY ── -->
+  <!-- WIN PROBABILITY -->
   <section class="section">
-    <div class="section-header">
-      <h2 class="section-title">Win Probability</h2>
-      <div class="section-rule"></div>
-    </div>
+    <div class="section-label">Win Probability</div>
     <div id="winprob"></div>
   </section>
 
-  <!-- ── COUNTRY BREAKDOWN ── -->
+  <!-- COUNTRY TABLE -->
   <section class="section">
-    <div class="section-header">
-      <h2 class="section-title">Country-by-Country Projections</h2>
-      <div class="section-rule"></div>
-    </div>
-    <div class="country-table-wrap">
-      <table class="country-table">
-        <thead>
-          <tr>
-            <th>Country</th>
-            <th>Owner</th>
-            <th>Predicted exit</th>
-            <th style="text-align:right">Pts</th>
-          </tr>
-        </thead>
-        <tbody id="countryTable"></tbody>
-      </table>
+    <div class="section-label">Country-by-Country Projections</div>
+    <table class="ctable">
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>Owner</th>
+          <th>Predicted exit</th>
+          <th class="r">Pts</th>
+        </tr>
+      </thead>
+      <tbody id="countryTable"></tbody>
+    </table>
+  </section>
+
+  <!-- KEY INSIGHTS -->
+  <section class="section">
+    <div class="section-label">Key Insights</div>
+    <div class="insight-item"><strong>Paul 🐐 is the narrow favourite.</strong> Spain are the single most likely World Cup winner (Opta: 16.1%, betting markets ~17%), and Paul holds them alongside Sweden, USA, and Cape Verde. Spain alone could deliver 38 points.</div>
+    <div class="insight-item"><strong>Jack has the most balanced hand.</strong> France (co-favourite, ~17% to win), Japan (R16 threat), Paraguay and Qatar. France could single-handedly outscore most other players' full portfolios.</div>
+    <div class="insight-item"><strong>Oisin is the sleeper.</strong> Portugal at +900 is legitimate value. Switzerland and Czechia are quiet over-performers who could pile on points. Oisin's ceiling is underrated by the field.</div>
+    <div class="insight-item"><strong>Calla's Argentina factor.</strong> Argentina made the final in 18.1% of Opta's simulations — higher than their win probability suggests. If Messi's farewell tour goes all the way, Calla becomes a genuine threat.</div>
+    <div class="insight-item"><strong>Seán is the dark horse.</strong> DR Congo, Ivory Coast, Ecuador and Morocco. A good run from Morocco and Ecuador could see Seán surge unexpectedly.</div>
+    <div class="insight-item"><strong>Derek faces the toughest draw.</strong> Ghana, Haiti, Curaçao and New Zealand are four of the weakest nations in the tournament. All four are expected to exit at the group stage.</div>
+    <div class="insight-item"><strong>Format note.</strong> The expanded 48-team format means 32 teams advance from the group stage. The Round of 32 is a new scoring opportunity not seen in previous sweepstakes — group-stage wins (1 pt each) can meaningfully accumulate.</div>
+  </section>
+
+  <!-- METHODOLOGY -->
+  <section class="section">
+    <div class="section-label">Methodology</div>
+    <div class="method-text">
+      <p>Projected points are estimated using consensus predictions from Opta's 25,000-simulation supercomputer, FanDuel/DraftKings betting markets, and expert analysis from ESPN, Yahoo Sports, RotoWire and CBS Sports. For each country, the most likely exit round was identified and group-stage wins were estimated based on each team's strength relative to their group opponents.</p>
+      <p>Win probabilities for each sweepstake participant are modelled across each country's range of possible outcomes — not just the most likely scenario — weighted by tournament probability.</p>
     </div>
   </section>
 
-  <!-- ── KEY INSIGHTS ── -->
-  <section class="section">
-    <div class="section-header">
-      <h2 class="section-title">Key Insights</h2>
-      <div class="section-rule"></div>
-    </div>
-    <div class="insight-list">
-      <div class="insight-box"><strong>🥇 Paul 🐐 is the narrow favourite.</strong> Spain are the single most likely World Cup winner according to all major forecasters (Opta: 16.1%, betting markets ~17%), and Paul holds them alongside Sweden (solid R16 prospects), USA (host nation, likely QF run) and Cape Verde (group exit). Spain alone could deliver 38 points if they go all the way.</div>
-      <div class="insight-box"><strong>🎯 Jack has the most balanced hand.</strong> France (co-favourite, ~17% to win), Japan (R16 threat), Paraguay (group exit likely) and Qatar (group exit). France could single-handedly outscore most other players' full portfolios.</div>
-      <div class="insight-box"><strong>🌙 Oisin is the sleeper.</strong> Portugal at +900 is legitimate value. Switzerland and Czechia are quiet over-performers who could pile on points. Oisin's ceiling is underrated by the field.</div>
-      <div class="insight-box"><strong>🇦🇷 Calla's Argentina factor.</strong> Argentina made the final in 18.1% of Opta's simulations — higher than their win probability suggests. If Messi's farewell tour goes all the way, Calla becomes a genuine threat.</div>
-      <div class="insight-box"><strong>⚡ Seán is the dark horse.</strong> DR Congo (surprise packet), Ivory Coast (solid African side), Ecuador (strong defensive record, could reach QF) and Morocco (2022 semi-finalists, tipped by some analysts to top Group C). A good run from Morocco and Ecuador could see Seán surge.</div>
-      <div class="insight-box"><strong>💀 Derek faces the toughest draw.</strong> Ghana, Haiti, Curaçao and New Zealand are four of the weakest nations in the tournament. All four are expected to exit at the group stage with minimal wins. Derek is almost certain to finish last.</div>
-      <div class="insight-box"><strong>🔥 The Spain factor.</strong> Whoever holds Spain (Paul) holds the tournament favourite. Spain won Euro 2024 with Lamine Yamal and Pedri in devastating form. Opta's supercomputer gives them the highest probability of any single nation lifting the trophy.</div>
-      <div class="insight-box"><strong>📊 Format note.</strong> The expanded 48-team format means 32 teams advance from the group stage — more than ever before. This makes the Round of 32 a new scoring opportunity not seen in previous sweepstakes. Group-stage wins (1 pt each) can meaningfully accumulate for strong nations playing three games.</div>
-    </div>
-  </section>
+  <p class="footer">* Pre-tournament projection for entertainment purposes only. Football is wonderfully unpredictable — upsets, injuries and VAR controversies may render all of the above completely wrong.</p>
 
-  <!-- ── METHODOLOGY ── -->
-  <section class="section">
-    <div class="section-header">
-      <h2 class="section-title">Methodology</h2>
-      <div class="section-rule"></div>
-    </div>
-    <div class="method-box">
-      Projected points are estimated using consensus predictions from Opta's 25,000-simulation supercomputer, FanDuel/DraftKings betting markets, and expert analysis from ESPN, Yahoo Sports, RotoWire and CBS Sports. For each country, the most likely exit round was identified and group-stage wins were estimated based on each team's strength relative to their group opponents. Points are the sum of estimated group wins plus the points awarded for reaching and exiting each knockout round.<br><br>
-      Win probabilities for each sweepstake participant are modelled across each country's range of possible outcomes — not just the most likely scenario — weighted by tournament probability.
-    </div>
-  </section>
-
-  <p class="disclaimer">* This is a pre-tournament projection for entertainment purposes. Football is wonderfully unpredictable — upsets, injuries and VAR controversies may render all of the above completely wrong.</p>
-
-</main>
+</div>
 
 <script>
 const players = [
@@ -756,57 +587,76 @@ const players = [
 ];
 
 const countryData = {
-  "Bosnia & Herz.": { gw:1, exit:"r32",    tag:"tag-r32",   flag:"🇧🇦", pts:1+3,      label:"Round of 32" },
-  "Panama":         { gw:0, exit:"group",   tag:"tag-group", flag:"🇵🇦", pts:0,         label:"Group stage" },
-  "Colombia":       { gw:2, exit:"r16",     tag:"tag-r16",   flag:"🇨🇴", pts:2+3+5,    label:"Round of 16" },
-  "Germany":        { gw:2, exit:"qf",      tag:"tag-qf",    flag:"🇩🇪", pts:2+3+5+7,  label:"Quarter-final" },
-  "Jordan":         { gw:0, exit:"group",   tag:"tag-group", flag:"🇯🇴", pts:0,         label:"Group stage" },
-  "Algeria":        { gw:1, exit:"r32",     tag:"tag-r32",   flag:"🇩🇿", pts:1+3,      label:"Round of 32" },
-  "Iran":           { gw:1, exit:"r32",     tag:"tag-r32",   flag:"🇮🇷", pts:1+3,      label:"Round of 32" },
-  "England":        { gw:2, exit:"semi",    tag:"tag-semi",  flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", pts:2+3+5+7+9, label:"Semi-final" },
-  "Tunisia":        { gw:0, exit:"group",   tag:"tag-group", flag:"🇹🇳", pts:0,         label:"Group stage" },
-  "Australia":      { gw:1, exit:"r32",     tag:"tag-r32",   flag:"🇦🇺", pts:1+3,      label:"Round of 32" },
-  "Uruguay":        { gw:1, exit:"r32",     tag:"tag-r32",   flag:"🇺🇾", pts:1+3,      label:"Round of 32" },
-  "Brazil":         { gw:2, exit:"qf",      tag:"tag-qf",    flag:"🇧🇷", pts:2+3+5+7,  label:"Quarter-final" },
-  "Qatar":          { gw:0, exit:"group",   tag:"tag-group", flag:"🇶🇦", pts:0,         label:"Group stage" },
-  "Paraguay":       { gw:0, exit:"group",   tag:"tag-group", flag:"🇵🇾", pts:0,         label:"Group stage" },
-  "Japan":          { gw:2, exit:"r16",     tag:"tag-r16",   flag:"🇯🇵", pts:2+3+5,    label:"Round of 16" },
-  "France":         { gw:3, exit:"final",   tag:"tag-final", flag:"🇫🇷", pts:3+3+5+7+9+11, label:"Runner-up" },
-  "Uzbekistan":     { gw:0, exit:"group",   tag:"tag-group", flag:"🇺🇿", pts:0,         label:"Group stage" },
-  "Canada":         { gw:1, exit:"r32",     tag:"tag-r32",   flag:"🇨🇦", pts:1+3,      label:"Round of 32" },
-  "Austria":        { gw:1, exit:"r32",     tag:"tag-r32",   flag:"🇦🇹", pts:1+3,      label:"Round of 32" },
-  "Argentina":      { gw:3, exit:"semi",    tag:"tag-semi",  flag:"🇦🇷", pts:3+3+5+7+9, label:"Semi-final" },
-  "Scotland":       { gw:1, exit:"r32",     tag:"tag-r32",   flag:"🏴󠁧󠁢󠁳󠁣󠁴󠁿", pts:1+3,      label:"Round of 32" },
-  "Egypt":          { gw:1, exit:"r32",     tag:"tag-r32",   flag:"🇪🇬", pts:1+3,      label:"Round of 32" },
-  "Mexico":         { gw:2, exit:"r16",     tag:"tag-r16",   flag:"🇲🇽", pts:2+3+5,    label:"Round of 16" },
-  "Netherlands":    { gw:2, exit:"qf",      tag:"tag-qf",    flag:"🇳🇱", pts:2+3+5+7,  label:"Quarter-final" },
-  "Cape Verde":     { gw:0, exit:"group",   tag:"tag-group", flag:"🇨🇻", pts:0,         label:"Group stage" },
-  "Sweden":         { gw:1, exit:"r32",     tag:"tag-r32",   flag:"🇸🇪", pts:1+3,      label:"Round of 32" },
-  "USA":            { gw:2, exit:"qf",      tag:"tag-qf",    flag:"🇺🇸", pts:2+3+5+7,  label:"Quarter-final" },
-  "Spain":          { gw:3, exit:"winner",  tag:"tag-final", flag:"🇪🇸", pts:3+3+5+7+9+11, label:"🏆 Winners" },
-  "DR Congo":       { gw:1, exit:"r32",     tag:"tag-r32",   flag:"🇨🇩", pts:1+3,      label:"Round of 32" },
-  "Ivory Coast":    { gw:1, exit:"r32",     tag:"tag-r32",   flag:"🇨🇮", pts:1+3,      label:"Round of 32" },
-  "Ecuador":        { gw:2, exit:"qf",      tag:"tag-qf",    flag:"🇪🇨", pts:2+3+5+7,  label:"Quarter-final" },
-  "Morocco":        { gw:2, exit:"r16",     tag:"tag-r16",   flag:"🇲🇦", pts:2+3+5,    label:"Round of 16" },
-  "Saudi Arabia":   { gw:0, exit:"group",   tag:"tag-group", flag:"🇸🇦", pts:0,         label:"Group stage" },
-  "South Korea":    { gw:1, exit:"r32",     tag:"tag-r32",   flag:"🇰🇷", pts:1+3,      label:"Round of 32" },
-  "Senegal":        { gw:1, exit:"r32",     tag:"tag-r32",   flag:"🇸🇳", pts:1+3,      label:"Round of 32" },
-  "Croatia":        { gw:1, exit:"r32",     tag:"tag-r32",   flag:"🇭🇷", pts:1+3,      label:"Round of 32" },
-  "Iraq":           { gw:0, exit:"group",   tag:"tag-group", flag:"🇮🇶", pts:0,         label:"Group stage" },
-  "Czechia":        { gw:2, exit:"r16",     tag:"tag-r16",   flag:"🇨🇿", pts:2+3+5,    label:"Round of 16" },
-  "Switzerland":    { gw:2, exit:"r16",     tag:"tag-r16",   flag:"🇨🇭", pts:2+3+5,    label:"Round of 16" },
-  "Portugal":       { gw:2, exit:"semi",    tag:"tag-semi",  flag:"🇵🇹", pts:2+3+5+7+9, label:"Semi-final" },
-  "South Africa":   { gw:0, exit:"group",   tag:"tag-group", flag:"🇿🇦", pts:0,         label:"Group stage" },
-  "Norway":         { gw:2, exit:"r16",     tag:"tag-r16",   flag:"🇳🇴", pts:2+3+5,    label:"Round of 16" },
-  "Turkey":         { gw:1, exit:"r32",     tag:"tag-r32",   flag:"🇹🇷", pts:1+3,      label:"Round of 32" },
-  "Belgium":        { gw:2, exit:"qf",      tag:"tag-qf",    flag:"🇧🇪", pts:2+3+5+7,  label:"Quarter-final" },
-  "Ghana":          { gw:0, exit:"group",   tag:"tag-group", flag:"🇬🇭", pts:0,         label:"Group stage" },
-  "Haiti":          { gw:0, exit:"group",   tag:"tag-group", flag:"🇭🇹", pts:0,         label:"Group stage" },
-  "Curaçao":        { gw:0, exit:"group",   tag:"tag-group", flag:"🇨🇼", pts:0,         label:"Group stage" },
-  "New Zealand":    { gw:0, exit:"group",   tag:"tag-group", flag:"🇳🇿", pts:0,         label:"Group stage" },
+  "Bosnia & Herz.": { flag:"🇧🇦", pts:4,  label:"Round of 32" },
+  "Panama":         { flag:"🇵🇦", pts:0,  label:"Group stage" },
+  "Colombia":       { flag:"🇨🇴", pts:10, label:"Round of 16" },
+  "Germany":        { flag:"🇩🇪", pts:17, label:"Quarter-final" },
+  "Jordan":         { flag:"🇯🇴", pts:0,  label:"Group stage" },
+  "Algeria":        { flag:"🇩🇿", pts:4,  label:"Round of 32" },
+  "Iran":           { flag:"🇮🇷", pts:4,  label:"Round of 32" },
+  "England":        { flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", pts:26, label:"Semi-final" },
+  "Tunisia":        { flag:"🇹🇳", pts:0,  label:"Group stage" },
+  "Australia":      { flag:"🇦🇺", pts:4,  label:"Round of 32" },
+  "Uruguay":        { flag:"🇺🇾", pts:4,  label:"Round of 32" },
+  "Brazil":         { flag:"🇧🇷", pts:17, label:"Quarter-final" },
+  "Qatar":          { flag:"🇶🇦", pts:0,  label:"Group stage" },
+  "Paraguay":       { flag:"🇵🇾", pts:0,  label:"Group stage" },
+  "Japan":          { flag:"🇯🇵", pts:10, label:"Round of 16" },
+  "France":         { flag:"🇫🇷", pts:38, label:"Runner-up" },
+  "Uzbekistan":     { flag:"🇺🇿", pts:0,  label:"Group stage" },
+  "Canada":         { flag:"🇨🇦", pts:4,  label:"Round of 32" },
+  "Austria":        { flag:"🇦🇹", pts:4,  label:"Round of 32" },
+  "Argentina":      { flag:"🇦🇷", pts:27, label:"Semi-final" },
+  "Scotland":       { flag:"🏴󠁧󠁢󠁳󠁣󠁴󠁿", pts:4,  label:"Round of 32" },
+  "Egypt":          { flag:"🇪🇬", pts:4,  label:"Round of 32" },
+  "Mexico":         { flag:"🇲🇽", pts:10, label:"Round of 16" },
+  "Netherlands":    { flag:"🇳🇱", pts:17, label:"Quarter-final" },
+  "Cape Verde":     { flag:"🇨🇻", pts:0,  label:"Group stage" },
+  "Sweden":         { flag:"🇸🇪", pts:4,  label:"Round of 32" },
+  "USA":            { flag:"🇺🇸", pts:17, label:"Quarter-final" },
+  "Spain":          { flag:"🇪🇸", pts:38, label:"🏆 Winners" },
+  "DR Congo":       { flag:"🇨🇩", pts:4,  label:"Round of 32" },
+  "Ivory Coast":    { flag:"🇨🇮", pts:4,  label:"Round of 32" },
+  "Ecuador":        { flag:"🇪🇨", pts:17, label:"Quarter-final" },
+  "Morocco":        { flag:"🇲🇦", pts:10, label:"Round of 16" },
+  "Saudi Arabia":   { flag:"🇸🇦", pts:0,  label:"Group stage" },
+  "South Korea":    { flag:"🇰🇷", pts:4,  label:"Round of 32" },
+  "Senegal":        { flag:"🇸🇳", pts:4,  label:"Round of 32" },
+  "Croatia":        { flag:"🇭🇷", pts:4,  label:"Round of 32" },
+  "Iraq":           { flag:"🇮🇶", pts:0,  label:"Group stage" },
+  "Czechia":        { flag:"🇨🇿", pts:10, label:"Round of 16" },
+  "Switzerland":    { flag:"🇨🇭", pts:10, label:"Round of 16" },
+  "Portugal":       { flag:"🇵🇹", pts:26, label:"Semi-final" },
+  "South Africa":   { flag:"🇿🇦", pts:0,  label:"Group stage" },
+  "Norway":         { flag:"🇳🇴", pts:10, label:"Round of 16" },
+  "Turkey":         { flag:"🇹🇷", pts:4,  label:"Round of 32" },
+  "Belgium":        { flag:"🇧🇪", pts:17, label:"Quarter-final" },
+  "Ghana":          { flag:"🇬🇭", pts:0,  label:"Group stage" },
+  "Haiti":          { flag:"🇭🇹", pts:0,  label:"Group stage" },
+  "Curaçao":        { flag:"🇨🇼", pts:0,  label:"Group stage" },
+  "New Zealand":    { flag:"🇳🇿", pts:0,  label:"Group stage" },
 };
 
-// ── Leaderboard ──
+// Scoring rules
+const scoringRules = document.getElementById('scoring-rules');
+const stages = [
+  { stage: "Group win", pts: 1 },
+  { stage: "Round of 32", pts: 3 },
+  { stage: "Round of 16", pts: 5 },
+  { stage: "Quarter-final", pts: 7 },
+  { stage: "Semi-final", pts: 9 },
+  { stage: "Final win", pts: 11 },
+];
+stages.forEach(s => {
+  scoringRules.innerHTML += `
+    <div class="scoring-row">
+      <div class="scoring-stage">${s.stage}</div>
+      <div class="scoring-bar-wrap"><div class="scoring-bar-fill" style="width:${(s.pts/11)*100}%"></div></div>
+      <div class="scoring-pts">${s.pts}</div>
+    </div>`;
+});
+
+// Leaderboard
 const scored = players.map(p => {
   const total = p.countries.reduce((sum, c) => sum + (countryData[c]?.pts || 0), 0);
   return { ...p, total };
@@ -815,57 +665,52 @@ const scored = players.map(p => {
 const maxPts = scored[0].total;
 const lb = document.getElementById('leaderboard');
 scored.forEach((p, i) => {
-  const cls = i === 0 ? 'top1' : i === 1 ? 'top2' : i === 2 ? 'top3' : '';
   const pct = Math.round((p.total / maxPts) * 100);
   lb.innerHTML += `
-    <div class="lb-row ${cls}">
-      <div class="rank">${i + 1}</div>
-      <div>
+    <div class="lb-row">
+      <div class="lb-rank">${i + 1}</div>
+      <div class="lb-info">
         <div class="lb-name">${p.name}</div>
         <div class="lb-countries">${p.countries.join(' · ')}</div>
-        <div style="margin-top:6px"><div class="bar-wrap"><div class="bar-fill" style="width:${pct}%"></div></div></div>
       </div>
-      <div></div>
-      <div class="lb-pts"><div class="num">${p.total}</div><div class="lbl">pts</div></div>
+      <div class="lb-bar-wrap"><div class="lb-bar-fill" style="width:${pct}%"></div></div>
+      <div class="lb-pts">${p.total}</div>
     </div>`;
 });
 
-// ── Win probability ──
+// Win probability
 const winProbs = [
-  { name: "Paul 🐐",  pct: 28, color: "#c9a84c" },
-  { name: "Jack",     pct: 22, color: "#3b82f6" },
-  { name: "Oisin",    pct: 12, color: "#8b5cf6" },
-  { name: "Calla",    pct: 11, color: "#ec4899" },
-  { name: "Camryn",   pct:  8, color: "#14b8a6" },
-  { name: "Conor",    pct:  6, color: "#f59e0b" },
-  { name: "Seán",     pct:  5, color: "#22c55e" },
-  { name: "Aodhan",   pct:  4, color: "#ef4444" },
-  { name: "Brendan",  pct:  2, color: "#6366f1" },
-  { name: "Lochlann", pct:  1, color: "#84cc16" },
-  { name: "Alex",     pct:  1, color: "#f97316" },
-  { name: "Derek",    pct:  0, color: "#9ca3af" },
+  { name: "Paul 🐐",  pct: 28 },
+  { name: "Jack",     pct: 22 },
+  { name: "Oisin",    pct: 12 },
+  { name: "Calla",    pct: 11 },
+  { name: "Camryn",   pct:  8 },
+  { name: "Conor",    pct:  6 },
+  { name: "Seán",     pct:  5 },
+  { name: "Aodhan",   pct:  4 },
+  { name: "Brendan",  pct:  2 },
+  { name: "Lochlann", pct:  1 },
+  { name: "Alex",     pct:  1 },
+  { name: "Derek",    pct:  0 },
 ];
 
 const wp = document.getElementById('winprob');
 winProbs.forEach(p => {
   wp.innerHTML += `
-    <div class="winprob-row">
-      <div class="winprob-name">${p.name}</div>
-      <div class="winprob-bar-bg">
-        <div class="winprob-bar" style="width:0%;background:${p.color};" data-target="${p.pct}">${p.pct > 4 ? p.pct + '%' : ''}</div>
-      </div>
-      <div class="winprob-pct">${p.pct}%</div>
+    <div class="wp-row">
+      <div class="wp-name">${p.name}</div>
+      <div class="wp-bar-wrap"><div class="wp-bar-fill" data-target="${p.pct}"></div></div>
+      <div class="wp-pct">${p.pct}%</div>
     </div>`;
 });
 
-// Animate bars in
 requestAnimationFrame(() => {
-  document.querySelectorAll('.winprob-bar').forEach(bar => {
-    setTimeout(() => { bar.style.width = bar.dataset.target + '%'; }, 200);
+  document.querySelectorAll('.wp-bar-fill').forEach(bar => {
+    setTimeout(() => { bar.style.width = bar.dataset.target + '%'; }, 100);
   });
 });
 
-// ── Country table ──
+// Country table
 const ct = document.getElementById('countryTable');
 const allCountries = Object.entries(countryData)
   .map(([name, d]) => {
@@ -876,10 +721,10 @@ const allCountries = Object.entries(countryData)
 
 allCountries.forEach(c => {
   ct.innerHTML += `<tr>
-    <td><span class="flag">${c.flag}</span>${c.name}</td>
-    <td class="owner">${c.owner}</td>
-    <td><span class="tag ${c.tag}">${c.label}</span></td>
-    <td class="pts-cell">${c.pts}</td>
+    <td class="cn">${c.flag} ${c.name}</td>
+    <td class="ow">${c.owner}</td>
+    <td class="ex">${c.label}</td>
+    <td class="pt">${c.pts}</td>
   </tr>`;
 });
 </script>
